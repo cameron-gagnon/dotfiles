@@ -23,6 +23,28 @@ Plugin 'flazz/vim-colorschemes'
 " autogenerate ctags files plugin
 Plugin 'szw/vim-tags'
 
+" airline, similar to powerline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" c++ syntax highlighting
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
+" code folding
+Plugin 'tmhedberg/SimpylFold'
+
+" PEP8 checking for python
+Plugin 'nvie/vim-flake8'
+
+" syntax checking for python
+Plugin 'scrooloose/syntastic'
+
+" zenburn colorscheme
+Plugin 'jnurmine/Zenburn'
+
+" file tree display
+Plugin 'scrooloose/nerdtree'
+
 " End configuration, makes the plugins available
 filetype plugin indent on
 
@@ -42,8 +64,20 @@ let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion  = 1
 
 " don't ever show preview window
-"set completeopt-=preview
+set completeopt-=preview
 "let g:ycm_add_preview_to_completeopt = 0
+
+" typing ',g' will go to fn definition
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => MISC PLUGINS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" code folding
+let g:SimpylFold_docstring_preview=1
+
+" nerdtree
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Text and spacing
@@ -75,15 +109,26 @@ set colorcolumn=80              "Highlight column 81 for line breaks
 "set paste                       "Allow pasting from the clipboard
 set pastetoggle=<F9>            "Toggle pasting from clipboard
 
+set backspace=indent,eol,start  "Allow backspacing over auto-indents, etc
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+set fileformat=unix             "line endings as unix
+
+set encoding=utf-8              "set default encoding to utf-8
+
 let python_highlight_all = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Solarized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:solarized_termcolors=16  "Used the reduced set of 256 colors in terminal
 syntax enable                   "Enable syntax highlighting
+syntax on
 set background=dark
 "colorscheme solarized          "Set colorscheme to solarized
-"set colo koehler               "Sets colorscheme to koehler
+colorscheme koehler               "Sets colorscheme to koehler
 
 
 
@@ -117,6 +162,15 @@ nnoremap <Space>k <C-u><CR>
 
 let mapleader=","             "Leader becomes a comma
 
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
 " Suppsed to display undo tree; GundoToggle is unrecongized?
 " nnoremap <leader>u :GundoToggle<CR>
 
@@ -138,6 +192,11 @@ set wildmenu                    "Visual autocomplete for command menu
 
 set incsearch                   "Search as characters are entered
 "set hlsearch                    "Highlight matches
+
+" Makes searches case-sensitive only if they contain upper-case characters
+set ignorecase
+set smartcase
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Filetype Based Behavior
@@ -187,9 +246,17 @@ let pyindent_nested_paren="&sw*2"
 let pyindent_open_paren="&sw*2"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Makes searches case-sensitive only if they contain upper-case characters
-set ignorecase
-set smartcase
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""                 CSCOPE USAGE                      """"""""""
@@ -211,3 +278,34 @@ if has('cscope')
 
   command! -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                POWERLINE                           """""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+
+"set rtp+=/Users/raguay/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+
+" These lines setup the environment to show graphics and colors correctly.
+"set t_Co=256
+
+"let g:minBufExplForceSyntaxEnable = 1
+
+"set guifont=Inconsolata\ for\ Powerline:h14
+"set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+" always shows the statusline
+set laststatus=2
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                AIRLINE                             """""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_powerline_fonts=1
+let g:airline_theme='solarized'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                C++ SYNTAX HIGHLIGHTING             """""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:cpp_class_scope_highlight = 1

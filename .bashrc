@@ -280,7 +280,7 @@ alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 alias projammin='cd /media/cameron/Fresh500/projammin/'
 alias eecs='cd /media/cameron/Fresh500/college/eecs/'
-alias 281='cd /media/cameron/Fresh500/college/eecs/281-W16/projects/p4'
+alias 281='cd /media/cameron/Fresh500/college/eecs/281-W16/'
 alias 370='cd /media/cameron/Fresh500/college/eecs/370-W16/projects/p4'
 alias 398='cd /media/cameron/Fresh500/college/eecs/398-W16/'
 alias math='cd /media/cameron/Fresh500/college/math/417'
@@ -291,13 +291,15 @@ alias fresh='cd /media/cameron/Fresh500/'
 
 
 ################################################################################
-########                      GIT EXPORTS                               ########
+########                      GIT ALIASES                               ########
 ################################################################################
 # export  this for gdb so we can use vim when we want to edit a file
 # that is being run
 EDITOR=/usr/bin/vim
 export EDITOR
 export GIT_EDITOR='vim'
+
+alias gc='git clone'
 
 # go to /usr/lib/git-core/git-sh-prompt for more config on git stuff
 
@@ -318,3 +320,12 @@ IGNOREEOF=10 # Shell only exists after the 10th consecutive Ctrl-d
 
 alias reset_audio="pulseaudio -k && sudo alsa force-reload"
 alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
+
+################################################################################
+#######                     POWERLINE                                  #########
+################################################################################
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/local/lib/python3.4/dist-packages/powerline/bindings/bash/powerline.sh
+source ~/.autoenv/activate.sh
