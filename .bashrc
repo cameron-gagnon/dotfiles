@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+#d ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -13,7 +13,7 @@ esac
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-shopt -s histappend
+#shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -21,7 +21,7 @@ HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+#shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -133,18 +133,18 @@ On_IWhite='\e[0;107m'   # White
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[$IBlack\]\u@\h\[\033[00m\]:\@\[\033[01;36m\]\w\[\033[00m\]\$ '
-    PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[01;31m\]\h'; else echo '\[\033[01;32m\][\T]\033[01;35m$(declare -F __git_ps1 &> /dev/null && __git_ps1)\033[0m\033[01;32m\u@\h '; fi)\[\033[01;34m\]\w\n$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
+    #PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[01;31m\]\h'; else echo '\[\033[01;32m\][\T]\033[01;35m$(declare -F __git_ps1 &> /dev/null && __git_ps1)\033[0m\033[01;32m\u@\h '; fi)\[\033[01;34m\]\w\n$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(declare -F __git_ps1 &> /dev/null && __git_ps1) \$ '
-    PS2="continue -->"
+    #PS2="continue -->"
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'
+    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -163,7 +163,7 @@ esac
 #fi
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -lFa'
 alias la='ls -A'
 alias l='ls -CFla'
 
@@ -183,13 +183,13 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
+#if ! shopt -oq posix; then
+#  if [ -f /usr/share/bash-completion/bash_completion ]; then
+#    . /usr/share/bash-completion/bash_completion
+#  elif [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#  fi
+#fi
 
 #login for linux terminal on CAEN Servers
 alias caen='ssh cgagnon@login-course.engin.umich.edu'
@@ -270,24 +270,17 @@ LS_COLORS=$LS_COLORS:'di=1;4;31'
 export LS_COLORS
 
 #export PYTHONPATH=${PYTHONPATH}:/usr/local/lib/python3.4/site-packages/cx_Freeze
-alias ls='ls --color'
-alias l='ls -lah --color'
+alias ls='ls -Ga'
+alias l='ls -lhaG'
 alias c='clear'
 alias ..="cd .."
 alias ..2="cd ../.."
 alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
-alias projammin='cd /media/cameron/Fresh500/projammin/'
-alias eecs='cd /media/cameron/Fresh500/college/eecs/'
-alias 281='cd /media/cameron/Fresh500/college/eecs/281-W16/projects/p4'
-alias 370='cd /media/cameron/Fresh500/college/eecs/370-W16/projects/p4'
-alias 398='cd /media/cameron/Fresh500/college/eecs/398-W16/'
-alias math='cd /media/cameron/Fresh500/college/math/417'
-alias stats='cd /media/cameron/Fresh500/college/stats/412/'
-alias projects='cd /media/cameron/Fresh500/projammin/projects/'
-alias col='cd /media/cameron/Fresh500/college/'
-alias fresh='cd /media/cameron/Fresh500/'
+alias most="history | cut -c 8- | sort | uniq -c | sort"
+alias edit="v ~/.bashrc"
+alias u='. ~/.bashrc'
 
 
 ################################################################################
@@ -298,6 +291,16 @@ alias fresh='cd /media/cameron/Fresh500/'
 EDITOR=/usr/bin/vim
 export EDITOR
 export GIT_EDITOR='vim'
+
+alias gcm='git commit -m'            # commit and add message
+alias go='git checkout'              # git checkout a branch
+alias gs='git status'
+alias gaa='git add .'                # add all unstaged, modified, and deleted files
+alias ga='git add'                   # add a single file at a time
+alias gg1='git graph1'               # helpful graph command for looking at logs
+lscm() {
+    list_aliases $1 $2 $3 $4
+}
 
 # go to /usr/lib/git-core/git-sh-prompt for more config on git stuff
 
@@ -314,7 +317,30 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 #####################################################################
 
 
-IGNOREEOF=10 # Shell only exists after the 10th consecutive Ctrl-d
+IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
 
-alias reset_audio="pulseaudio -k && sudo alsa force-reload"
-alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
+################################################################################
+#######                     DUO SPECIFIC                                ########
+################################################################################
+###### IRONMAN
+alias iman='cd ~/src/ironman/'                          # cd into the ironman project
+alias tyk='echo "Touch yo YubiKey, fool!"'
+alias o_i='cd ~/src/ironman/ && atom . && supervisord'  # open ironman in atom and start it
+alias gpo='tyk && git pull origin master --rebase'      # prepare to diff
+alias gp='tyk && git pull'                              # pull files bb
+alias act='. .venv/bin/activate'    # activate the virtual environment
+alias ad='act && arc diff && deactivate'                # diff that arc baby
+alias al='act && arc lint && deactivate'
+alias lint='act && arc lint && deactivate'
+alias nt='act && cd ~/src/ironman/jarvis/test && nosetests'  # run nosetests
+alias npmt='cd ~/src/ironman/vision/test && npm test'        # run node tests
+alias iron_tests='nt && cd - && npmt && cd - && deactivate'  # run all tests for ironman
+alias site='cd ~/src/site_mapping'
+alias ctf='cd ~/ctf'
+alias lab='cd ~/ctf/labyrenth'
+
+###### ORACLE
+alias oam='cd ~/src/duo_oam'
+alias duo_sync='rsync -av ~/src/duo_oam oracle@192.168.123.195:/app/home/oracle/src/'
+
+[ -s "/Users/cgagnon/.scm_breeze/scm_breeze.sh" ] && source "/Users/cgagnon/.scm_breeze/scm_breeze.sh"
