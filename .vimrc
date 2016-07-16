@@ -6,22 +6,31 @@ filetype off                  " required
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 "
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 " a bunch of color schemes for vim
 Plugin 'flazz/vim-colorschemes'
 
 " autogenerate ctags files plugin
 Plugin 'szw/vim-tags'
+
+" rsync stuff
+Plugin 'jacob-ogre/vim-syncr'
+
+" NERDTree
+"Plugin 'scrooloose/nerdTree'
+
+" git-status-flag plugin for NERDTree
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " End configuration, makes the plugins available
 filetype plugin indent on
@@ -32,6 +41,24 @@ augroup reload_vimrc " {{{
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => vim-syncr shortcuts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => NERDTree shortcuts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"autocmd vimenter * NERDTree         " automatic nerdtree on entering vim
+"" shortcut to toggle nerdtree
+"map <C-n> :NERDTreeToggle<CR>
+"" close vim if the only window open is NERDTree
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"" stop NERDTree from starting on vim's start
+"let g:NERDTreeHijackNetrw=0
+"" show hidden files on startup
+"let g:NERDTreeShowHidden=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => You Complete Me Package ^^^
@@ -77,7 +104,7 @@ set pastetoggle=<F9>            "Toggle pasting from clipboard
 
 let python_highlight_all = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Solarized
+"   => Solarized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:solarized_termcolors=16  "Used the reduced set of 256 colors in terminal
 syntax enable                   "Enable syntax highlighting
@@ -85,19 +112,24 @@ set background=dark
 "colorscheme solarized          "Set colorscheme to solarized
 "set colo koehler               "Sets colorscheme to koehler
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => User Interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set number                      "Show line numbers
-set showcmd                     "Show command in the bottom bar
-set spell spelllang=en_us       "Specify English_US locale
+set number                      " Show line numbers
+set showcmd                     " Show command in the bottom bar
+set spell spelllang=en_us       " Specify English_US locale
 hi clear SpellBad
 hi clear SpellCap
 hi SpellBad ctermfg=LightRed
 hi SpellCap ctermfg=LightGreen
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => FUNCTIONS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Removes trailing spaces
+function TrimExtraWhiteSpace()
+    %s/\s\+$
+:endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Key mappings
@@ -120,6 +152,12 @@ let mapleader=","             "Leader becomes a comma
 " Suppsed to display undo tree; GundoToggle is unrecongized?
 " nnoremap <leader>u :GundoToggle<CR>
 
+map <F2> :call TrimExtraWhiteSpace()<CR>
+map! <F2> :call TrimExtraWhiteSpace()<CR>
+" opens Explorer mode with Ctrl-n
+map <C-n> :E<CR>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Typing Interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -138,6 +176,9 @@ set wildmenu                    "Visual autocomplete for command menu
 
 set incsearch                   "Search as characters are entered
 "set hlsearch                    "Highlight matches
+set mouse=a                     "enable scrolling with the mouse
+
+set backspace=2                 " make backspace work like most other apps
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Filetype Based Behavior
@@ -211,3 +252,14 @@ if has('cscope')
 
   command! -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                 POWERLINE                         """"""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+set laststatus=2
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""                 CTRL-P                            """"""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set runtimepath^=~/.vim/bundle/ctrlp.vim
