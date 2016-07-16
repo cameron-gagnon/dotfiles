@@ -284,7 +284,7 @@ alias u='. ~/.bashrc'
 
 
 ################################################################################
-########                      GIT EXPORTS                               ########
+########                      GIT ALIASES                               ########
 ################################################################################
 # export  this for gdb so we can use vim when we want to edit a file
 # that is being run
@@ -293,6 +293,7 @@ export EDITOR
 export GIT_EDITOR='vim'
 
 alias gcm='git commit -m'            # commit and add message
+alias gc='git clone'
 alias go='git checkout'              # git checkout a branch
 alias gs='git status'
 alias gaa='git add .'                # add all unstaged, modified, and deleted files
@@ -319,28 +320,14 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 
 IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
 
-################################################################################
-#######                     DUO SPECIFIC                                ########
-################################################################################
-###### IRONMAN
-alias iman='cd ~/src/ironman/'                          # cd into the ironman project
-alias tyk='echo "Touch yo YubiKey, fool!"'
-alias o_i='cd ~/src/ironman/ && atom . && supervisord'  # open ironman in atom and start it
-alias gpo='tyk && git pull origin master --rebase'      # prepare to diff
-alias gp='tyk && git pull'                              # pull files bb
-alias act='. .venv/bin/activate'    # activate the virtual environment
-alias ad='act && arc diff && deactivate'                # diff that arc baby
-alias al='act && arc lint && deactivate'
-alias lint='act && arc lint && deactivate'
-alias nt='act && cd ~/src/ironman/jarvis/test && nosetests'  # run nosetests
-alias npmt='cd ~/src/ironman/vision/test && npm test'        # run node tests
-alias iron_tests='nt && cd - && npmt && cd - && deactivate'  # run all tests for ironman
-alias site='cd ~/src/site_mapping'
-alias ctf='cd ~/ctf'
-alias lab='cd ~/ctf/labyrenth'
+alias reset_audio="pulseaudio -k && sudo alsa force-reload"
+alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
 
-###### ORACLE
-alias oam='cd ~/src/duo_oam'
-alias duo_sync='rsync -av ~/src/duo_oam oracle@192.168.123.195:/app/home/oracle/src/'
-
-[ -s "/Users/cgagnon/.scm_breeze/scm_breeze.sh" ] && source "/Users/cgagnon/.scm_breeze/scm_breeze.sh"
+################################################################################
+#######                     POWERLINE                                  #########
+################################################################################
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/local/lib/python3.4/dist-packages/powerline/bindings/bash/powerline.sh
+source ~/.autoenv/activate.sh
