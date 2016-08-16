@@ -1,5 +1,5 @@
-set nocompatible              " be iMproved, required must be first in .vimrc file
-filetype off                  " required
+set nocompatible         " be iMproved, required must be first in .vimrc file
+filetype off             " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => VUNDLE PLUGINS
@@ -29,6 +29,12 @@ Plugin 'jacob-ogre/vim-syncr'
 " NERDTree
 "Plugin 'scrooloose/nerdTree'
 
+" syntax checking for python
+Plugin 'scrooloose/syntastic'
+
+" nerdcommenter
+Plugin 'scrooloose/nerdcommenter'
+
 " git-status-flag plugin for NERDTree
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
@@ -45,14 +51,11 @@ Plugin 'tmhedberg/SimpylFold'
 " PEP8 checking for python
 Plugin 'nvie/vim-flake8'
 
-" syntax checking for python
-Plugin 'scrooloose/syntastic'
-
 " zenburn colorscheme
 Plugin 'jnurmine/Zenburn'
 
-" End configuration, makes the plugins available
-filetype plugin indent on
+" Unite plugin
+Plugin 'Shougo/unite.vim'
 
 
 "Reload vimrc after editing
@@ -65,6 +68,29 @@ augroup END " }}}
 "   => vim-syncr shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => Unite Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <C-m> :Unite file file_rec buffer<CR>
+nnoremap <C-;> :Unite line<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => NERDCommenter shortcuts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let NERDCommentWholeLinesInVMode=1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Align line-wise comment delimiters flush left instead of following code
+" indentation
+let g:NERDDefaultAlign = 'left'
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => NERDTree shortcuts
@@ -235,6 +261,8 @@ set backspace=2                 " make backspace work like most other apps
 set ignorecase
 set smartcase
 
+"" macros
+let @i="iif __name__ == \"__main__\":"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Filetype Based Behavior
