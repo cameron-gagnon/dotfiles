@@ -67,7 +67,7 @@ augroup END " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => vim-syncr shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
+"autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Unite Plugin
@@ -232,8 +232,13 @@ nnoremap <space> za
 map <F2> :call TrimExtraWhiteSpace()<CR>
 map! <F2> :call TrimExtraWhiteSpace()<CR>
 " opens Explorer mode with Ctrl-n
-map <C-n> :E<CR>
+map <C-n> :Ex<CR>
 
+" paste ipdb set trace to debug
+let @d="iimport ipdb; ipdb.set_trace();"
+
+" copy to system clipboard
+vnoremap <leader>c "*y
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Typing Interface
