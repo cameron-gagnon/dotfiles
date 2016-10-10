@@ -18,6 +18,13 @@
     st = status
     ll = log --stat --abbrev-commit
     graph = log --graph --full-history --all --color --pretty=tformat:"%C(red)%h%C(reset)%x09%C(green)%d%C(reset)%C(bold)%s%C(reset)%C(yellow)(%an)%C(reset)"
+    gcm = commit -m            # commit and add message
+    gc = clone
+    go = checkout              # git checkout a branch
+    gs = status'
+    gaa = add .                # add all unstaged, modified, and deleted files
+    ga = add                   # add a single file at a time
+    gg1 = graph1               # helpful graph command for looking at logs
 
 [init]
 	templatedir = ~/.git_template

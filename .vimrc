@@ -45,9 +45,6 @@ Plugin 'vim-airline/vim-airline-themes'
 " c++ syntax highlighting
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
-" code folding
-Plugin 'tmhedberg/SimpylFold'
-
 " PEP8 checking for python
 Plugin 'nvie/vim-flake8'
 
@@ -67,7 +64,7 @@ augroup END " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => vim-syncr shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
+autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Unite Plugin

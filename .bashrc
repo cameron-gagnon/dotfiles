@@ -162,11 +162,6 @@ esac
 #   alias egrep='egrep --color=auto'
 #fi
 
-# some more ls aliases
-alias ll='ls -lFa'
-alias la='ls -A'
-alias l='ls -CFla'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -271,7 +266,7 @@ export LS_COLORS
 
 #export PYTHONPATH=${PYTHONPATH}:/usr/local/lib/python3.4/site-packages/cx_Freeze
 alias ls='ls -Ga'
-alias l='ls -lhaG'
+alias l='ll -a'
 alias c='clear'
 alias ..="cd .."
 alias ..2="cd ../.."
@@ -281,6 +276,8 @@ alias ..5="cd ../../../../.."
 alias most="history | cut -c 8- | sort | uniq -c | sort"
 alias edit="v ~/.bashrc"
 alias u='. ~/.bashrc'
+alias mod='chmod +x'
+alias act='. ./.venv/bin/activate/'
 
 
 ################################################################################
@@ -292,13 +289,6 @@ EDITOR=/usr/bin/vim
 export EDITOR
 export GIT_EDITOR='vim'
 
-alias gcm='git commit -m'            # commit and add message
-alias gc='git clone'
-alias go='git checkout'              # git checkout a branch
-alias gs='git status'
-alias gaa='git add .'                # add all unstaged, modified, and deleted files
-alias ga='git add'                   # add a single file at a time
-alias gg1='git graph1'               # helpful graph command for looking at logs
 lscm() {
     list_aliases $1 $2 $3 $4
 }
@@ -329,5 +319,3 @@ alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-. /usr/local/lib/python3.4/dist-packages/powerline/bindings/bash/powerline.sh
-source ~/.autoenv/activate.sh
