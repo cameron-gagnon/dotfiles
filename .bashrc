@@ -187,6 +187,8 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 
 ### changes ls color output
@@ -256,22 +258,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 LS_COLORS=$LS_COLORS:'di=1;4;31'
 export LS_COLORS
 
-#export PYTHONPATH=${PYTHONPATH}:/usr/local/lib/python3.4/site-packages/cx_Freeze
-alias ls='ls -Ga'
-alias l='ll -a'
-alias c='clear'
-alias ..="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
-alias most="history | cut -c 8- | sort | uniq -c | sort"
-alias edit="v ~/.bashrc"
-alias u='. ~/.bashrc'
-alias mod='chmod +x'
-alias act='. ./.venv/bin/activate/'
-
-
 ################################################################################
 ########                      GIT ALIASES                               ########
 ################################################################################
@@ -310,3 +296,5 @@ IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
+
+[ -s "/Users/cameron/.scm_breeze/scm_breeze.sh" ] && source "/Users/cameron/.scm_breeze/scm_breeze.sh"
