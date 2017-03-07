@@ -21,10 +21,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 
 " autogenerate ctags files plugin
-Plugin 'szw/vim-tags'
+"Plugin 'szw/vim-tags'
 
 " rsync stuff
-Plugin 'jacob-ogre/vim-syncr'
+"Plugin 'jacob-ogre/vim-syncr'
 
 " NERDTree
 "Plugin 'scrooloose/nerdTree'
@@ -36,7 +36,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 
 " git-status-flag plugin for NERDTree
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " airline, similar to powerline
 Plugin 'vim-airline/vim-airline'
@@ -52,7 +52,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 
 " Unite plugin
-Plugin 'Shougo/unite.vim'
+"Plugin 'Shougo/unite.vim'
 
 
 "Reload vimrc after editing
@@ -64,13 +64,13 @@ augroup END " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => vim-syncr shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
+"autocmd BufWritePost * :Suplfil     " automatic syncr upload on write
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Unite Plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <C-m> :Unite file file_rec buffer<CR>
-nnoremap <C-;> :Unite line<CR>
+"nnoremap <C-m> :Unite file file_rec buffer<CR>
+"nnoremap <C-;> :Unite line<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => NERDCommenter shortcuts
@@ -219,6 +219,7 @@ function TrimExtraWhiteSpace()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn off serach highlight using three hits of the space bar>
 nnoremap <Space><Space><Space> :nohlsearch<CR>
+
 
 " For a line wrapped to two lines, j and k won't skip over the wrapped part
 nnoremap j gj
