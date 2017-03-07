@@ -263,13 +263,8 @@ export LS_COLORS
 ################################################################################
 # export  this for gdb so we can use vim when we want to edit a file
 # that is being run
-EDITOR=/usr/bin/vim
-export EDITOR
+export EDITOR=/usr/bin/vim
 export GIT_EDITOR='vim'
-
-lscm() {
-    list_aliases $1 $2 $3 $4
-}
 
 # go to /usr/lib/git-core/git-sh-prompt for more config on git stuff
 
@@ -277,8 +272,8 @@ lscm() {
 # git_ps1_showstashstate to a nonempty value. if something is stashed,
 # then a '$' will be shown next to the branch name.
 export GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWCOLORHINTS=true
-git_ps1_showstashstate=true
+export GIT_PS1_SHOWCOLORHINTS=true
+export GIT_PS1_SHOWSTASHSTATE=true
 
 # GIT_PS1_SHOWUNTRACKEDFILES to a nonempty value. If there're untracked
 # files, then a '%' will be shown next to the branch name.  You can
