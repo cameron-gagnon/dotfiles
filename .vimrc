@@ -110,6 +110,8 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion  = 1
 
+let g:ycm_filetype_blacklist = {'sql': 1}
+
 " don't ever show preview window
 set completeopt-=preview
 "let g:ycm_add_preview_to_completeopt = 0
@@ -134,6 +136,8 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set tabstop=4                   "Tab has length 4 spaces
 "set softtabstop=4               "Tabs equate to 4 spaces
 set expandtab                   "Tabs become softtabstop spaces
+
+set textwidth=80              " Set files to be a maximum of 80 chars wide
 
 " Makefiles require tabs not spaces
 "augroup makefile
@@ -188,12 +192,26 @@ hi clear SpellCap
 hi SpellBad ctermfg=LightRed
 hi SpellCap ctermfg=LightGreen
 
+
+" Line number toggle
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+    set nornu
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-t> :call NumberToggle()<cr>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Removes trailing spaces
 function TrimExtraWhiteSpace()
-    %s/\s\+$
+    %s/\s\+$//g
 :endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -225,6 +243,8 @@ nnoremap <space> za
 
 " Suppsed to display undo tree; GundoToggle is unrecongized?
 " nnoremap <leader>u :GundoToggle<CR>
+
+map <leader>exp :Explore<CR>
 
 map <F2> :call TrimExtraWhiteSpace()<CR>
 map! <F2> :call TrimExtraWhiteSpace()<CR>
@@ -271,8 +291,8 @@ let @i="iif __name__ == \"__main__\":"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype on                     "Enable filetype detection
 filetype indent on              "Enable filetype indentation
-filetype plugin on              "Enable filetype plugins
 filetype plugin indent on       "Enalbe filetype plugin indentation
+filetype plugin on              "Enable filetype plugins
 
 
 
@@ -357,6 +377,7 @@ set laststatus=2
 """"""""                 CTRL-P                            """"""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_custom_ignore = 'DS_Store\|.git\|venv'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""                 AIRLINE                            """""""""
