@@ -1,8 +1,8 @@
 [user]
-	email = cameron.gagnon@gmail.com
-	name = Cameron Gagnon
+    email = cameron.gagnon@gmail.com
+    name = Cameron Gagnon
 [push]
-	default = simple
+    default = simple
 
 [help]
     # Automatically fix typos such as 'git psuh' to 'git push'
@@ -26,7 +26,9 @@
     ga = add                   # add a single file at a time
     gg1 = graph1               # helpful graph command for looking at logs
 
-[init]
-	templatedir = ~/.git_template
+#[init]
+#    templatedir = ~/.git_template
 [rerere]
-	enabled = true
+    enabled = true
+[core]
+    excludesfile = /Users/cameron/.gitignore_global
