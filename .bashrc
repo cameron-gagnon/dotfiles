@@ -162,9 +162,6 @@ esac
 #   alias egrep='egrep --color=auto'
 #fi
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -186,11 +183,6 @@ fi
 #  fi
 #fi
 
-#login for linux terminal on CAEN Servers
-alias caen='ssh cgagnon@login-course.engin.umich.edu'
-alias e='exit'
-alias v='vim'
-alias o='gnome-open'
 #cd /media/cameron/Fresh500/projammin/
 
 ### Added by the Heroku Toolbelt
@@ -300,6 +292,7 @@ lscm() {
 # then a '$' will be shown next to the branch name.
 export GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWCOLORHINTS=true
+git_ps1_showstashstate=true
 
 # GIT_PS1_SHOWUNTRACKEDFILES to a nonempty value. If there're untracked
 # files, then a '%' will be shown next to the branch name.  You can
@@ -310,8 +303,6 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 
 IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
 
-alias reset_audio="pulseaudio -k && sudo alsa force-reload"
-alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
 
 ################################################################################
 #######                     POWERLINE                                  #########
