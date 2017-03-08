@@ -1,16 +1,14 @@
-PLUGINS="ctrlp scm_breeze"
+plugins: ctrlp scm_breeze
 
-# TODO: condense the ln -sf ... commands into its own function
+install: .bashrc .vimrc sym_link plugins
 
-install: .bashrc .vimrc ctrlp $(PLUGINS)
-	ln -sf ~/dotfiles/.bashrc ~/.bashrc
-	ln -sf ~/dotfiles/.bash_aliases ~/.bash_aliases
-	ln -sf ~/dotfiles/.vimrc ~/.vimrc
-	ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+lite: .bashrc.lite .vimrc.lite _lite_cp sym_link plugins
 
-lite: .bashrc.lite .vimrc.lite $(PLUGINS)
+_lite_cp:
 	cp .bashrc.lite .bashrc
 	cp .vimrc.lite .vimrc
+
+sym_link:
 	ln -sf ~/dotfiles/.bashrc ~/.bashrc
 	ln -sf ~/dotfiles/.bash_aliases ~/.bash_aliases
 	ln -sf ~/dotfiles/.vimrc ~/.vimrc
@@ -22,4 +20,4 @@ ctrlp:
 scm_breeze:
 	git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
 	~/.scm_breeze/install.sh
-	source ~/.bashrc
+	. ~/.bashrc
