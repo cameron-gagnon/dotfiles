@@ -18,7 +18,7 @@ alias e='exit'
 alias v='vim'
 alias o='open'
 alias ls='ls -Ga'
-alias l='ll -a'
+alias l='ls -lah --color=auto'
 alias c='clear'
 alias ..="cd .."
 alias ..2="cd ../.."

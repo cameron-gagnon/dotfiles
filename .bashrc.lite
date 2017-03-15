@@ -162,9 +162,6 @@ esac
 #   alias egrep='egrep --color=auto'
 #fi
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -185,13 +182,6 @@ fi
 #    . /etc/bash_completion
 #  fi
 #fi
-
-#login for linux terminal on CAEN Servers
-alias caen='ssh cgagnon@login-course.engin.umich.edu'
-alias e='exit'
-alias v='vim'
-alias o='gnome-open'
-#cd /media/cameron/Fresh500/projammin/
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -264,34 +254,14 @@ export PATH="/usr/local/heroku/bin:$PATH"
 LS_COLORS=$LS_COLORS:'di=1;4;31'
 export LS_COLORS
 
-#export PYTHONPATH=${PYTHONPATH}:/usr/local/lib/python3.4/site-packages/cx_Freeze
-alias ls='ls -Ga'
-alias l='ll -a'
-alias c='clear'
-alias ..="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
-alias most="history | cut -c 8- | sort | uniq -c | sort"
-alias edit="v ~/.bashrc"
-alias u='. ~/.bashrc'
-alias mod='chmod +x'
-alias act='. ./.venv/bin/activate/'
-
 
 ################################################################################
 ########                      GIT ALIASES                               ########
 ################################################################################
 # export  this for gdb so we can use vim when we want to edit a file
 # that is being run
-EDITOR=/usr/bin/vim
-export EDITOR
+export EDITOR='/usr/bin/vim'
 export GIT_EDITOR='vim'
-
-lscm() {
-    list_aliases $1 $2 $3 $4
-}
 
 # go to /usr/lib/git-core/git-sh-prompt for more config on git stuff
 
@@ -307,11 +277,7 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 
 #####################################################################
 
-
 IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
-
-alias reset_audio="pulseaudio -k && sudo alsa force-reload"
-alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
 
 ################################################################################
 #######                     POWERLINE                                  #########
@@ -319,3 +285,5 @@ alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
+
+[ -s "/root/.scm_breeze/scm_breeze.sh" ] && source "/root/.scm_breeze/scm_breeze.sh"
