@@ -162,7 +162,6 @@ esac
 #   alias egrep='egrep --color=auto'
 #fi
 
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -182,10 +181,6 @@ fi
 #    . /etc/bash_completion
 #  fi
 #fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 
 ### changes ls color output
 #Blue = 34
@@ -254,7 +249,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 LS_COLORS=$LS_COLORS:'di=1;4;31'
 export LS_COLORS
 
-
 ################################################################################
 ########                      GIT ALIASES                               ########
 ################################################################################
@@ -278,12 +272,3 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 #####################################################################
 
 IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
-
-################################################################################
-#######                     POWERLINE                                  #########
-################################################################################
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-
-[ -s "/root/.scm_breeze/scm_breeze.sh" ] && source "/root/.scm_breeze/scm_breeze.sh"
