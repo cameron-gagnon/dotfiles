@@ -2,7 +2,7 @@
     email = cameron.gagnon@gmail.com
     name = Cameron Gagnon
 [push]
-    default = simple
+    default = current
 
 [help]
     # Automatically fix typos such as 'git psuh' to 'git push'
@@ -17,7 +17,7 @@
 [alias]
     st = status
     ll = log --stat --abbrev-commit
-    graph = log --graph --full-history --all --color --pretty=tformat:"%C(red)%h%C(reset)%x09%C(green)%d%C(reset)%C(bold)%s%C(reset)%C(yellow)(%an)%C(reset)"
+    gl = log --graph --full-history --all --color --pretty=tformat:"%C(red)%h%C(reset)%x09%C(green)%d%C(reset)%C(bold)%s%C(reset)%C(yellow)(%an)%C(reset)"
     gcm = commit -m            # commit and add message
     gc = clone
     go = checkout              # git checkout a branch
