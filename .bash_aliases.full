@@ -4,6 +4,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias cos='ssh cgagnon@cosmos.eecs.umich.edu -p 47923'
 alias reset_audio="pulseaudio -k && sudo alsa force-reload"
 alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 
 # input: default git command. Ex. "git commit -m"
