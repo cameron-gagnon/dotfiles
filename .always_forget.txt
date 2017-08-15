@@ -342,6 +342,8 @@ alsamixer                               # change volume
 amixer -c 0 sset Master '6%+'           # change volume
 amixer -c 0 sset Headphone toggle       # toggle speakers/headphones
 mplayer "$(ls | shuf -n1)"              # select and play a random file
+# http://bytefreaks.net/gnulinux/bash/ffmpeg-extract-audio-from-webm-to-mp3
+ffmpeg -i "${FILE}" -vn -ab 128k -ar 44100 -y "${FILE%.webm}.mp3";
 
 # Video
 # Read video device live
