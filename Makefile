@@ -1,4 +1,4 @@
-install: .bashrc .vimrc sym_link plugins
+install: sym_link plugins
 
 plugins: ctrlp scm_breeze
 
@@ -8,6 +8,12 @@ sym_link_lite:
 	ln -sf ~/dotfiles/.bashrc.lite ~/.bashrc
 	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
 	ln -sf ~/dotfiles/.vimrc.lite ~/.vimrc
+	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
+
+sym_link:
+	ln -sf ~/dotfiles/.bashrc.full ~/.bashrc
+	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
+	ln -sf ~/dotfiles/.vimrc.full ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
 
 ctrlp:
