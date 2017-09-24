@@ -57,6 +57,8 @@ Plugin 'jnurmine/Zenburn'
 "ag for vim
 Plugin 'rking/ag.vim'
 
+" go plugin
+Plugin 'fatih/vim-go'
 
 "Reload vimrc after editing
 augroup reload_vimrc " {{{
@@ -149,7 +151,7 @@ set textwidth=80              " Set files to be a maximum of 80 chars wide
 "augroup END
 
 set list                        " Show whitespace characters
-set listchars=tab:>-,trail:%    " helps notice bad tabbing & eliminates
+set listchars=tab:▸\ ,trail:%    " helps notice bad tabbing & eliminates
                                 " trailing whitespace characters
 
 set shiftwidth=4                ">> shifts 4 spaces
@@ -412,7 +414,7 @@ let g:cpp_class_scope_highlight = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""                 AG FOR VIM                         """""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ag_working_path_mode="r" " search from root of project dir
+"let g:ag_working_path_mode="r" " search from root of project dir
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
