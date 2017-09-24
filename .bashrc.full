@@ -286,10 +286,16 @@ IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
 
 
 ################################################################################
-#######                     POWERLINE                                  #########
+#######                        POWERLINE                               #########
 ################################################################################
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
+
+################################################################################
+#######                     RUBY LOCAL INSTALL                         #########
+################################################################################
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -s "/Users/cameron/.scm_breeze/scm_breeze.sh" ] && source "/Users/cameron/.scm_breeze/scm_breeze.sh"
