@@ -187,6 +187,11 @@ set background=dark
 colorscheme koehler               "Sets colorscheme to koehler
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   => Core Vim Config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set lazyredraw " redraw only when we need to (i.e. not in the middle of macros)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => User Interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                      " Show line numbers
@@ -233,11 +238,12 @@ endfunction
 "   => Automatic behaviors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePre *.py,*.js :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePost .vimrc source $MYVIMRC "sources .vimrc on save
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Key mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn off serach highlight using three hits of the space bar>
+" Turn off search highlight using three hits of the space bar>
 nnoremap <Space><Space><Space> :nohlsearch<CR>
 
 
@@ -270,13 +276,16 @@ map <leader>exp :Explore<CR>
 nnoremap <silent> <F2> :call <SID>StripTrailingWhitespaces()<CR>
 
 " opens Explorer mode with Ctrl-n
-map <C-n> :Ex<CR>
+map <C-n> :Vex<CR>
 
 " paste ipdb set trace to debug
 let @d="iimport ipdb; ipdb.set_trace();"
 
 " copy to system clipboard
 vnoremap <leader>c "*y
+
+" source: https://superuser.com/questions/286985/reload-vimrc-in-vim-without-restart
+map <leader>vimrc :tabe ~/.vim/.vimrc<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Typing Interface
@@ -303,6 +312,9 @@ set backspace=2                 " make backspace work like most other apps
 " Makes searches case-sensitive only if they contain upper-case characters
 set ignorecase
 set smartcase
+
+" Search into subfolders and provides tab-completion for all file-related tasks
+set path+=**
 
 "" macros
 let @i="iif __name__ == \"__main__\":"
