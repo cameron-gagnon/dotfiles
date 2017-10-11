@@ -18,7 +18,6 @@ function h() {
 }
 
 #login for linux terminal on CAEN Servers
-alias caen='sshpass -f ~/.secret.txt ssh cgagnon@login-course.engin.umich.edu'
 alias e='exit'
 alias v='vim'
 alias o='open'
