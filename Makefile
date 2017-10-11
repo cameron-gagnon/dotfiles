@@ -9,6 +9,7 @@ sym_link_lite:
 	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
 	ln -sf ~/dotfiles/.vimrc.lite ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
+	ln -sf ~/dotfiles/.tmux.conf.full ~/.tmux.conf
 
 sym_link:
 	ln -sf ~/dotfiles/.bashrc.full ~/.bashrc
