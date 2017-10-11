@@ -185,10 +185,6 @@ fi
 
 #cd /media/cameron/Fresh500/projammin/
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
 
 
 ### changes ls color output
@@ -296,6 +292,15 @@ POWERLINE_BASH_SELECT=1
 #######                     RUBY LOCAL INSTALL                         #########
 ################################################################################
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export PATH="$PATH:$HOME/.rvm/bin"
+
+export PATH="/usr/local/bin:/usrlocal/sbin:$PATH:$HOME/.rvm/bin"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+export GOPATH='/Users/cameron/src/college/F17/498_002/projects/proj2'
+
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+fi
 
 [ -s "/Users/cameron/.scm_breeze/scm_breeze.sh" ] && source "/Users/cameron/.scm_breeze/scm_breeze.sh"
