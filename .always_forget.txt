@@ -1,4 +1,4 @@
-lways_forget.txt
+always_forget.txt
 #
 # awdeorio's UNIX cheat sheet
 #
@@ -1584,6 +1584,13 @@ git remote                              # list names of remote repositories
 git remote show origin                  # more info
 git remote set-url origin NEW_URL       # change location of repo
 git branch -vv                          # branch remotes
+git push -d <remote_name> <branch_name> # delete remote branch
+
+# enable checking out pull requests locally
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git@github.com:joyent/node.git
+	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
 
 # Branching
 git branch                              # view current and local branches
