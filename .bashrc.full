@@ -52,12 +52,12 @@ if [ -n "$force_color_prompt" ]; then
 	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
     else
-	color_prompt=
+	color_prompt=yes
     fi
 fi
 
 #Reset
-Color_Off='\e[0m'       # Text Reset
+Reset='\e[0m'       # Text Reset
 
 # Regular Colors
 Black='\e[0;30m'        # Black
@@ -129,13 +129,25 @@ On_IPurple='\e[0;105m'  # Purple
 On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
 
+grey="\[\033[01;37m\]"
+green="\[\033[01;32m\]"
+red="\[\033[01;31m\]"
+checkMark="\342\234\223"
+cross="\342\234\227"
+
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[$IBlack\]\u@\h\[\033[00m\]:\@\[\033[01;36m\]\w\[\033[00m\]\$ '
-    PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[01;31m\]\h'; else echo '\[\033[01;32m\][\T]\033[01;35m$(declare -F __git_ps1 &> /dev/null && __git_ps1)\033[0m\033[01;32m\u@\h '; fi)\[\033[01;34m\]\w\n$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(declare -F __git_ps1 &> /dev/null && __git_ps1) \$ '
-    #PS2="continue -->"
+    _bg_job_info() {
+        num_jobs=$(jobs | wc -l);
+        if [[ $num_jobs -gt 1 ]]; then # offset by 1 because there's a job that runs when the PS1 prompt is executed
+            echo -e " \033[03;31m[$(($num_jobs-1))]\033[0m";
+        fi
+    }
+    #PS1="$grey \$? \$(if [[ \$? == 0 ]]; then echo \"$green$checkMark\"; else echo \"$red$cross\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[0;31m\]\h'; else echo '\[\033[01;32m\][\T]$(_bg_job_info)\033[01;35m$(declare -F __git_ps1 &> /dev/null && __git_ps1)\033[0m\033[03;39m\u@\h '; fi)\[\033[03;39m\]\w\n\033[01;30m$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
+    PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[0;31m\]\h'; else echo '\[\033[01;37m\][\T]\[\033[0m\]$(_bg_job_info)\[\033[00;33m\]$(declare -F __git_ps1 &> /dev/null && __git_ps1) \[\033[0m\]\[\033[3;34m\]\u@\h\[\033[0m\] '; fi)\[\033[3;33m\]\w\n\[\033[01;30m\]$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
+
+
+    PS2="continue -->"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'
 fi
@@ -253,6 +265,7 @@ fi
 
 LS_COLORS=$LS_COLORS:'di=1;4;31'
 export LS_COLORS
+IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
 
 ################################################################################
 ########                      GIT ALIASES                               ########
@@ -275,19 +288,21 @@ export GIT_PS1_SHOWSTASHSTATE=true
 # files, then a '%' will be shown next to the branch name.  You can
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-#####################################################################
+################################################################################
+##########                      FUNCTIONS                             ##########
+################################################################################
 
-
-IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
-
-
+export PROMPT_COMMAND='prompt-command'
+function prompt-command {
+   date "+%Y-%m-%d %I:%M:%S_%P ${PWD} [$?] \$ $(history 1 | cut -d' ' -f4-)" >> ~/.bash_log
+}
 
 ################################################################################
 #######                     RUBY LOCAL INSTALL                         #########
 ################################################################################
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-export PATH="/usr/local/bin:/usrlocal/sbin:$PATH:$HOME/.rvm/bin"
+export PATH="/usr/local/bin:$PATH:$HOME/.rvm/bin"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
