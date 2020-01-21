@@ -17,6 +17,13 @@ function h() {
     hdfs dfs -$@
 }
 
+# input:
+#  $1 = 'status' 'start' 'stop' 'disable' 'enable'
+#  $2 = <service_name>
+function _sysctl() {
+    sudo systemctl $1 $2
+}
+
 #login for linux terminal on CAEN Servers
 alias e='exit'
 alias v='vim'
@@ -54,3 +61,8 @@ alias greps='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
 alias gup='git pull --rebase'
 alias vssh='vagrant ssh'
 alias vup='vagrant up'
+alias sstart='_sysctl start $1'
+alias sstatus='_sysctl status $1'
+alias sstop='_sysctl stop $1'
+alias senable='_sysctl enable $1'
+alias sdisable='_sysctl disable $1'
