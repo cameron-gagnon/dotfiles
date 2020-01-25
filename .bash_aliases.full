@@ -28,7 +28,7 @@ function _sysctl() {
 alias e='exit'
 alias v='vim'
 alias o='open'
-alias ls='ls -Ga'
+alias ls='ls -Ga --color'
 alias l='ls -lah'
 alias c='clear'
 alias ..="cd .."
@@ -66,3 +66,4 @@ alias sstatus='_sysctl status $1'
 alias sstop='_sysctl stop $1'
 alias senable='_sysctl enable $1'
 alias sdisable='_sysctl disable $1'
+alias srestart='_sysctl restart $1'
