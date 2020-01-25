@@ -1,8 +1,8 @@
-install: sym_link plugins
+install: sym_link plugins vundle
 
 plugins: ctrlp scm_breeze vundle
 
-lite: .bashrc.lite .vimrc.lite sym_link_lite plugins
+lite: .bashrc.lite .vimrc.lite sym_link_lite plugins vundle
 
 sym_link_lite:
 	ln -sf ~/dotfiles/.bashrc.lite ~/.bashrc
@@ -27,3 +27,5 @@ scm_breeze:
 	git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
 	~/.scm_breeze/install.sh
 	. ~/.bashrc
+vundle:
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
