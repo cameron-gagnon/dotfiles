@@ -1,15 +1,8 @@
-install: sym_link plugins vundle
+install: sym_link plugins misc
 
-plugins: ctrlp scm_breeze vundle
+plugins: scm_breeze vundle
 
-lite: .bashrc.lite .vimrc.lite sym_link_lite plugins vundle
-
-sym_link_lite:
-	ln -sf ~/dotfiles/.bashrc.lite ~/.bashrc
-	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
-	ln -sf ~/dotfiles/.vimrc.lite ~/.vimrc
-	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
-	ln -sf ~/dotfiles/.tmux.conf.full ~/.tmux.conf
+misc: always_forget
 
 sym_link:
 	ln -sf ~/dotfiles/.bashrc.full ~/.bashrc
@@ -17,15 +10,17 @@ sym_link:
 	ln -sf ~/dotfiles/.vimrc.full ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
 
-vundle:
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-ctrlp:
-	git clone https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
-
 scm_breeze:
-	git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
-	~/.scm_breeze/install.sh
-	. ~/.bashrc
+	if [ ! -d $("$HOME/.scm_breeze") ]; then \
+		git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze; \
+		~/.scm_breeze/install.sh; \
+		. ~/.bashrc; \
+	fi
 vundle:
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	if [ ! -d $("$HOME/.vim/bundle") ]; then \
+		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
+	fi
+
+
+always_forget:
+	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt

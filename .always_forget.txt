@@ -996,6 +996,10 @@ shasum -c FILE                          # check SHA hash
 md5sum -c FILE                          # check MD5 hash
 openssl req -newkey rsa:2048 -nodes -x509 -days 365 # generate server key
 openssl req -newkey rsa:4096 -nodes -x509 -days 365 # generate server key, 4096
+openssl genrsa -out filename.key 2048   # generate 2048 bit key
+openssl req -new -key filename.key -out filename.csr # generate CSR with associated key
+openssl x509 -noout -modulus -in filename.cert | openssl md5 # generate modulus of cert
+openssl rsa -noout -modulus -in filename.key | openssl md5 # generate modulus of key
 zip --encrypt -r DIR DIR                # create encrypted zip archive
 sudo openvpn myconfig.ovpn              # start VPN connection
 gpg -c FILE                             # encrypt file to FILE.gpg
