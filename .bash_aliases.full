@@ -1,20 +1,45 @@
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias cos='ssh cgagnon@cosmos.eecs.umich.edu -p 47923'
-alias reset_audio="pulseaudio -k && sudo alsa force-reload"
-alias g+="g++ -std=c++14 -Wall -Werror -Wvla -Wextra -pedantic -O3"
-alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-
-
 # input: default git command. Ex. "git commit -m"
 # output: scm_breeze aliasas for git command. Ex. "gcm = git commit -m"
 function lscm() {
     list_aliases $@
 }
 
-function h() {
-    hdfs dfs -$@
+function search_file() {
+    echo "Searching $1 for $2..."
+    # specify grep location in case it's aliased. when it's aliased it messes up
+    # the way parameters are passed to the alias/function
+    $(which grep) --color=auto -i "$2" "$1"
+}
+
+function dpkgl() {
+    dpkg -l *$1*
+}
+
+function make_ssh_key() {
+    ssh-keygen -t rsa -b 4096 -C "$1"
+}
+
+# updates the $SSH_AUTH_SOCK to be the correct socket file
+# intended to be called from tmux to reattach to the correct ssh socket
+function fixssh() {
+    eval `tmux show-env -s | grep '^SSH_'`;
+    ssh-add -l
+}
+
+function verify_x509_cert() {
+    openssl x509 -noout -text -in $1
+}
+
+function verify_x509_certs() {
+    openssl crl2pkcs7 -nocrl -certfile $1 | openssl pkcs7 -print_certs -text -noout
+}
+
+function request_cert() {
+    openssl req -noout -text -in $1
+}
+
+function csr() {
+    openssl req -new -newkey rsa:2048 -nodes -keyout ${1}.key -out ${1}.csr
 }
 
 # input:
@@ -38,32 +63,21 @@ alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 alias most="history | cut -c 8- | sort | uniq -c | sort"
 alias edit="v ~/.bash_aliases"
-alias u='. ~/.bash_aliases'
+alias u='. ~/.bashrc'
 alias mod='chmod +x'
-alias lab='cd ~/src/ctf/labyrenth'
-alias burp='java -jar -Xmx1024m ~/Downloads/burpsuite_free_v1.7.03.jar'
 alias act='. venv/bin/activate'
-alias pnu='cd ~/src/projammin/pnu/'
-alias ctf='cd ~/src/ctf/'
-alias pico='cd ~/src/ctf/pico/'
-alias col='cd ~/src/college/W17'
-alias 494='col && 494-W17/494_projects/crapscrapers'
-alias 398='col && 398-W17'
-alias 496='col && 496-W17'
-alias T496='col && TC-496-W17'
-alias 485='col && 485-W17/485_projects/eecs485-p3'
-alias 385='col && 385-W17'
 alias gcm='git commit -m '
 alias goc='git checkout'
-alias c4='col && 398-W17/c4cs.github.io'
 alias vedit='v ~/.vimrc'
-alias greps='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
+alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
 alias gup='git pull --rebase'
-alias vssh='vagrant ssh'
-alias vup='vagrant up'
 alias sstart='_sysctl start $1'
 alias sstatus='_sysctl status $1'
 alias sstop='_sysctl stop $1'
 alias senable='_sysctl enable $1'
 alias sdisable='_sysctl disable $1'
 alias srestart='_sysctl restart $1'
+alias h='search_file ~/.bash_log'
+alias af='search_file ~/.always_forget.txt'
+alias fsh='fixssh'
+alias myip="curl ifconfig.co"

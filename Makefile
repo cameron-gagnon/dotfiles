@@ -1,8 +1,10 @@
-install: sym_link plugins misc
+install: sym_link plugins misc binaries
 
 plugins: scm_breeze vundle
 
 misc: always_forget
+
+.PHONY: binaries
 
 sym_link:
 	ln -sf ~/dotfiles/.bashrc.full ~/.bashrc
@@ -24,3 +26,7 @@ vundle:
 
 always_forget:
 	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
+
+binaries:
+	# https://github.com/simeji/jid
+	ln -sf ~/dotfiles/binaries/jid ~/bin/jid
