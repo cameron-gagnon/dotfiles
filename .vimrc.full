@@ -43,6 +43,8 @@ Plugin 'airblade/vim-gitgutter'
 
 Plugin 'mbbill/undotree'
 
+Plugin 'hashivim/vim-terraform'
+
 """ BEGIN GOD-LIKE SECTION """
 " for adding/removing comments
 Plugin 'tpope/vim-commentary'
@@ -68,7 +70,6 @@ Plugin 'junegunn/fzf'
 
 " fzf plugin for vim
 Plugin 'junegunn/fzf.vim'
-
 
 """ END GOD-LIKE SECTION """
 
@@ -212,6 +213,7 @@ set lazyredraw " redraw only when we need to (i.e. not in the middle of macros)
 "   => User Interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                      " Show line numbers
+set relativenumber              " Show relative line numbers
 set showcmd                     " Show command in the bottom bar
 set spell spelllang=en_us       " Specify English_US locale
 hi clear SpellBad
@@ -220,18 +222,6 @@ hi SpellBad ctermfg=LightRed
 hi SpellCap ctermfg=LightGreen
 set tags=tags;/
 
-
-" Line number toggle
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-    set nornu
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-i> :call NumberToggle()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => FUNCTIONS
@@ -255,13 +245,23 @@ function ToggleRSpec()
   if buffername[-1] ==? "spec"
     return join(buffername[:-2], "_")
   else
-    return join(buffername + ["spec"], "_")
+    return join(buffername + ["spec.rb"], "_")
   endif
 endfunction
 
+" Line number toggle
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+    set nornu
+  else
+    set relativenumber
+  endif
+endfunc
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   => Key mappings/Keybinds/Keyboard shortcuts
+"   => Key mappings/Keybinds/Keyboard/remapping shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn off search highlight using three hits of the space bar>
 nnoremap <Space><Space><Space> :nohlsearch<CR>
@@ -291,7 +291,11 @@ nnoremap <space> za
 
 map <leader>exp :Explore<CR>
 
+" mapping keybinds to function toggles
 nnoremap <silent> <F2> :call <SID>StripTrailingWhitespaces()<CR>
+nnoremap <C-i> :call NumberToggle()<cr>
+" ty sam w. for the hookup
+noremap <Leader>y :call fzf#run({'sink': 'vsplit', 'options': '-i -q ' . expand(ToggleRSpec()), 'down': 10})<CR>
 
 " opens Explorer mode with Ctrl-n
 map <C-n> :Vex<CR>
@@ -308,15 +312,15 @@ map <leader>vimrc :tabe ~/.vim/.vimrc<cr>
 " formats the selected text as json https://coderwall.com/p/faceag/format-json-in-vim
 vmap =j :!python -m json.tool<CR>
 
-
-" ty sam w. for the hookup
-noremap <Leader>y :call fzf#run({'sink': 'vsplit', 'options': '-i -q ' . expand(ToggleRSpec()), 'down': 10})<CR>
-
 " ctrl-p like functionality for fzf
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
 
 " search current word and open results. Best if used with Ag/FZF
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
+" search for what's under cursor
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Typing Interface
