@@ -42,6 +42,11 @@ function csr() {
     openssl req -new -newkey rsa:2048 -nodes -keyout ${1}.key -out ${1}.csr
 }
 
+function check_mod() {
+    openssl rsa -modulus -noout -in ${1}.key
+    openssl x509 -modulus -noout -in ${1}.cert
+}
+
 # input:
 #  $1 = 'status' 'start' 'stop' 'disable' 'enable'
 #  $2 = <service_name>
@@ -71,6 +76,8 @@ alias goc='git checkout'
 alias vedit='v ~/.vimrc'
 alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
 alias gup='git pull --rebase'
+alias gignore='git update-index --assume-unchanged $@'
+alias gunignore='git update-index --no-assume-unchanged $@'
 alias sstart='_sysctl start $1'
 alias sstatus='_sysctl status $1'
 alias sstop='_sysctl stop $1'
@@ -81,3 +88,6 @@ alias h='search_file ~/.bash_log'
 alias af='search_file ~/.always_forget.txt'
 alias fsh='fixssh'
 alias myip="curl ifconfig.co"
+alias check_mod='check_mod $@'
+alias bi='bundle install'
+alias be='bundle exec'
