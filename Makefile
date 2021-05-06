@@ -1,6 +1,6 @@
 install: sym_link plugins misc binaries
 
-plugins: scm_breeze vundle
+plugins: scm_breeze vundle git-stats
 
 misc: always_forget
 
@@ -23,6 +23,15 @@ vundle:
 		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
 	fi
 
+#https://github.com/IonicaBizau/git-stats
+git-stats:
+	npm install -g git-stats
+	npm install -g git-stats-importer
+
+auto-jump:
+	git clone git://github.com/wting/autojump.git
+	cd autojump
+	./install.py
 
 always_forget:
 	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
