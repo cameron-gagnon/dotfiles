@@ -34,10 +34,6 @@ function verify_x509_certs() {
     openssl crl2pkcs7 -nocrl -certfile $1 | openssl pkcs7 -print_certs -text -noout
 }
 
-function request_cert() {
-    openssl req -noout -text -in $1
-}
-
 function csr() {
     openssl req -new -newkey rsa:2048 -nodes -keyout ${1}.key -out ${1}.csr
 }
@@ -52,6 +48,33 @@ function check_mod() {
 #  $2 = <service_name>
 function _sysctl() {
     sudo systemctl $1 $2
+}
+
+function create_tmux_setup() {
+    SESSION=$USER;
+
+    # Create session
+    tmux -2 new-session -d -s $SESSION;
+
+    # Setup dev window
+    tmux new-window -t $SESSION:1 -n 'dev124' 'ssh dev124 -A'
+
+    # Setup sandbox window
+    tmux new-window -t $SESSION:2 -n 'n1-spare' 'ssh n1-spare.sandbox.meraki.com -A'
+
+    # Setup a window for script/server
+    tmux new-window -t $SESSION:3 -n 'Server';
+    tmux split-window -v;
+    tmux select-pane -t 0;
+    tmux send-keys "co/manage/script/server --skip rails32" C-m;
+    tmux select-pane -t 1;
+    tmux send-keys "co/manage/script/server --start rails32" C-m;
+
+    # Set default window
+    tmux select-window -t $SESSION:1
+
+    # Attach to session
+    tmux -2 attach-session -t $SESSION
 }
 
 #login for linux terminal on CAEN Servers
@@ -91,3 +114,7 @@ alias myip="curl ifconfig.co"
 alias check_mod='check_mod $@'
 alias bi='bundle install'
 alias be='bundle exec'
+alias ta='tmux a || create_tmux_setup'
+alias vcrt='verify_x509_cert'
+alias vcrts='verify_x509_certs'
+alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
