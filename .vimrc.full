@@ -306,6 +306,9 @@ let @d="iimport ipdb; ipdb.set_trace();"
 " copy to system clipboard
 vnoremap <leader>c "*y
 
+" highlight text then press // to search for it
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " source: https://superuser.com/questions/286985/reload-vimrc-in-vim-without-restart
 map <leader>vimrc :tabe ~/.vim/.vimrc<cr>
 
