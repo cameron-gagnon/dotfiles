@@ -1728,3 +1728,10 @@ rig                                    # generate random fake identities
 rev <<< "go hang a salami im a lasagna hog" # palindrome
 figlet STRING                          # print ascii bubble text
 lolcat                                 # rainbow colors (gem install lolcat)
+
+#######################################
+# Kubernetes
+kubectl rollout undo deployment nginx --to-revision=1 # revert rollout to previous version
+kubectl rollout history deployment nginx # see rollout history for deployment
+kubectl set image deploy DEPLOY_NAME nginx=public.ecr.aws/bitnami/nginx:1.19 --record
+kubectl get pods --show-labels

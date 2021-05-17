@@ -1,8 +1,8 @@
 [user]
-    email = cameron.gagnon@gmail.com
+	email = cameron.gagnon@gmail.com
     name = Cameron Gagnon
 [push]
-    default = current
+	default = current
 
 [help]
     # Automatically fix typos such as 'git psuh' to 'git push'
@@ -25,6 +25,7 @@
     gaa = add .                # add all unstaged, modified, and deleted files
     ga = add                   # add a single file at a time
     gg1 = graph1               # helpful graph command for looking at logs
+    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
 
 #[init]
 #    templatedir = ~/.git_template
@@ -32,3 +33,7 @@
     enabled = true
 [core]
     excludesfile = /Users/cameron/.gitignore_global
+[branch]
+	autoSetupMerge = always
+[init]
+	defaultBranch = main

@@ -8,7 +8,7 @@ function search_file() {
     echo "Searching $1 for $2..."
     # specify grep location in case it's aliased. when it's aliased it messes up
     # the way parameters are passed to the alias/function
-    $(which grep) --color=auto -i "$2" "$1"
+    /usr/bin/grep --color=auto -i "$2" "$1"
 }
 
 function dpkgl() {
@@ -81,7 +81,7 @@ function create_tmux_setup() {
 alias e='exit'
 alias v='vim'
 alias o='open'
-alias ls='ls -Ga --color'
+#alias ls='ls -Ga --color'
 alias l='ls -lah'
 alias c='clear'
 alias ..="cd .."
@@ -97,7 +97,7 @@ alias act='. venv/bin/activate'
 alias gcm='git commit -m '
 alias goc='git checkout'
 alias vedit='v ~/.vimrc'
-alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
+#alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
 alias gup='git pull --rebase'
 alias gignore='git update-index --assume-unchanged $@'
 alias gunignore='git update-index --no-assume-unchanged $@'
@@ -111,6 +111,7 @@ alias h='search_file ~/.bash_log'
 alias af='search_file ~/.always_forget.txt'
 alias fsh='fixssh'
 alias myip="curl ifconfig.co"
+alias ctags="`brew --prefix`/bin/ctags"
 alias check_mod='check_mod $@'
 alias bi='bundle install'
 alias be='bundle exec'
@@ -118,3 +119,4 @@ alias ta='tmux a || create_tmux_setup'
 alias vcrt='verify_x509_cert'
 alias vcrts='verify_x509_certs'
 alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
+alias ipinfo='curl ipinfo.io'

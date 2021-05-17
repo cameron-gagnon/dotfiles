@@ -28,8 +28,8 @@ bind-key -n S-Right swap-window -t +1
 
 # change colors of active/inactive windows so it's easier to tell which pane
 # is in use
-set -g window-style 'fg=colour245,bg=colour236'
-set -g window-active-style 'fg=colour252,bg=black'
+# set -g window-style 'fg=colour245,bg=colour236'
+# set -g window-active-style 'fg=colour252,bg=black'
 
 # enable clicking into windows, scrolling
 set -g mouse on
@@ -37,4 +37,4 @@ set -g mouse on
 # sets the environment varible 'SSH_AUTH_SOCK' to point to our symlink
 # so that the SSH_AUTH_SOCK is always in a valid state
 # https://werat.github.io/2017/02/04/tmux-ssh-agent-forwarding.html
-set-option update-environment 'SSH_AUTH_SOCK'
+#set-option update-environment 'SSH_AUTH_SOCK'
