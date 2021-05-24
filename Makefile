@@ -1,6 +1,6 @@
 install: sym_link plugins misc binaries
 
-plugins: scm_breeze vundle git-stats
+plugins: scm_breeze vundle
 
 misc: always_forget
 
@@ -13,20 +13,15 @@ sym_link:
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
 
 scm_breeze:
-	if [ ! -d $("$HOME/.scm_breeze") ]; then \
+	if [ ! -d "$(HOME)/.scm_breeze" ]; then \
 		git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze; \
 		~/.scm_breeze/install.sh; \
 		. ~/.bashrc; \
 	fi
 vundle:
-	if [ ! -d $("$HOME/.vim/bundle") ]; then \
+	if [ ! -d "$($HOME)/.vim/bundle" ]; then \
 		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
 	fi
-
-#https://github.com/IonicaBizau/git-stats
-git-stats:
-	npm install -g git-stats
-	npm install -g git-stats-importer
 
 auto-jump:
 	git clone git://github.com/wting/autojump.git
@@ -37,5 +32,6 @@ always_forget:
 	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
 
 binaries:
+	mkdir ~/bin
 	# https://github.com/simeji/jid
 	ln -sf ~/dotfiles/binaries/jid ~/bin/jid
