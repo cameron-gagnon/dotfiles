@@ -200,7 +200,7 @@ let python_highlight_all = 1
 syntax enable                   "Enable syntax highlighting
 syntax on
 set background=dark
-colorscheme gruvbox
+colorscheme solarized
 " Overrides gruvbox's SpellBad setting
 hi SpellBad ctermfg=NONE
 
