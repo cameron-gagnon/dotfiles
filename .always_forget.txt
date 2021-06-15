@@ -1540,6 +1540,7 @@ git branch                              # check your branch
 git diff master origin/master           # see changes
 git merge origin/master                 # this will be a FF if no local changes
 git rebase origin/master                #
+git rebase --onto <newparent> <oldparent>
 
 # Commit
 git branch                              # check your branch
@@ -1735,3 +1736,11 @@ kubectl rollout undo deployment nginx --to-revision=1 # revert rollout to previo
 kubectl rollout history deployment nginx # see rollout history for deployment
 kubectl set image deploy DEPLOY_NAME nginx=public.ecr.aws/bitnami/nginx:1.19 --record
 kubectl get pods --show-labels
+
+#######################################
+# Go/go/golang
+go modules https://blog.golang.org/using-go-modules
+go mod init # creates a new module, initializing the go.mod file that describes it
+go get # changes the required version of a dependency (or adds a new dependency)
+go mod tidy # removes unused dependencies
+go list -m all # prints the current module's dependencies
