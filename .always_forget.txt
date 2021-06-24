@@ -1744,3 +1744,8 @@ go mod init # creates a new module, initializing the go.mod file that describes 
 go get # changes the required version of a dependency (or adds a new dependency)
 go mod tidy # removes unused dependencies
 go list -m all # prints the current module's dependencies
+
+######################################
+# Tools
+# RipGrep rg
+rg -g '*glob*' --files <directory> # search by filename
