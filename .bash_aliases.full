@@ -77,9 +77,36 @@ function create_tmux_setup() {
     tmux -2 attach-session -t $SESSION
 }
 
+# copy dotfiles to ssh machines
+function bssh {
+    (
+        server="$1"
+        cd ~
+        if [ $(ssh $server '[ ! -d ./.vim/bundle ]') ];
+        then
+            echo "Server $server does not have our configuration.  Configuring..."
+            tar -hczf - .bashrc .bash_aliases .vimrc .gitconfig .vim/* .scm_breeze/* \
+                | ssh $server 'cd && tar -xzf -'
+            ssh $server './.scm_breeze/install.sh'
+        else
+            echo "Server $server already configured. SSHing in..."
+        fi
+        ssh $server
+    )
+}
+
+function git_checkout_branch {
+    git checkout -b ${USER}/$@
+}
+
+function ctags_fn {
+    "`brew --prefix`/bin/ctags"
+}
+
+
 #login for linux terminal on CAEN Servers
 alias e='exit'
-alias v='vim'
+alias v='ge vim'
 alias o='open'
 #alias ls='ls -Ga --color'
 alias l='ls -lah'
@@ -111,7 +138,7 @@ alias h='search_file ~/.bash_log'
 alias af='search_file ~/.always_forget.txt'
 alias fsh='fixssh'
 alias myip="curl ifconfig.co"
-alias ctags="`brew --prefix`/bin/ctags"
+alias ctags="ctags_fn"
 alias check_mod='check_mod $@'
 alias bi='bundle install'
 alias be='bundle exec'
@@ -120,3 +147,5 @@ alias vcrt='verify_x509_cert'
 alias vcrts='verify_x509_certs'
 alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
 alias ipinfo='curl ipinfo.io'
+alias gocb='git_checkout_branch'
+alias rgf='rg --files | rg'

@@ -195,9 +195,6 @@ fi
 #  fi
 #fi
 
-#cd /media/cameron/Fresh500/projammin/
-
-
 
 ### changes ls color output
 #Blue = 34
@@ -287,20 +284,6 @@ export GIT_PS1_SHOWSTASHSTATE=true
 # GIT_PS1_SHOWUNTRACKEDFILES to a nonempty value. If there're untracked
 # files, then a '%' will be shown next to the branch name.  You can
 export GIT_PS1_SHOWUNTRACKEDFILES=true
-
-################################################################################
-##########                     FUNCTIONS                              ##########
-################################################################################
-
-# copy dotfiles to ssh machines
-function bssh {
-    (
-        cd ~
-        tar -hczf - $(ls -d \ .bashrc .vimrc .tmux.conf .gitconfig \
-            2>/dev/null) | ssh "$1" 'cd && tar -xzf -' &&
-            ssh "$@"
-    )
-}
 
 
 # export all shell commands to ~/.bashrc_log for better searching across
