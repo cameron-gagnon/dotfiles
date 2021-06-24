@@ -27,6 +27,8 @@ Plugin 'flazz/vim-colorschemes'
 " syntax checking for python
 Plugin 'scrooloose/syntastic'
 
+Plugin 'rodjek/vim-puppet'
+
 " lightweight statusline
 Plugin 'itchyny/lightline.vim'
 
@@ -200,7 +202,7 @@ let python_highlight_all = 1
 syntax enable                   "Enable syntax highlighting
 syntax on
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 " Overrides gruvbox's SpellBad setting
 hi SpellBad ctermfg=NONE
 
