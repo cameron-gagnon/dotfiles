@@ -116,19 +116,6 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   => NERDTree shortcuts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"autocmd vimenter * NERDTree         " automatic nerdtree on entering vim
-"" shortcut to toggle nerdtree
-"map <C-n> :NERDTreeToggle<CR>
-"" close vim if the only window open is NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"" stop NERDTree from starting on vim's start
-"let g:NERDTreeHijackNetrw=0
-"" show hidden files on startup
-"let g:NERDTreeShowHidden=1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => You Complete Me Package ^^^
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,6 +141,7 @@ let g:SimpylFold_docstring_preview=1
 
 " Display :Explore listing as tree by default
 let g:netrw_liststyle= 4
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Text and spacing
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -163,7 +151,7 @@ set tabstop=4                   "Tab has length 4 spaces
 "set softtabstop=4               "Tabs equate to 4 spaces
 set expandtab                   "Tabs become softtabstop spaces
 
-set textwidth=80              " Set files to be a maximum of 80 chars wide
+set textwidth=80                " Set files to be a maximum of 80 chars wide
 
 " Makefiles require tabs not spaces
 "augroup makefile
@@ -172,7 +160,7 @@ set textwidth=80              " Set files to be a maximum of 80 chars wide
 "augroup END
 
 set list                        " Show whitespace characters
-set listchars=tab:▸\ ,trail:%    " helps notice bad tabbing & eliminates
+set listchars=tab:▸\ ,trail:%   " helps notice bad tabbing & eliminates
                                 " trailing whitespace characters
 
 set shiftwidth=4                ">> shifts 4 spaces
@@ -183,7 +171,6 @@ set autoindent                  "Copy current indent when new line starts
 
 set colorcolumn=80              "Highlight column 81 for line breaks
 
-"set paste                       "Allow pasting from the clipboard
 set pastetoggle=<F9>            "Toggle pasting from clipboard
 
 set backspace=indent,eol,start  "Allow backspacing over auto-indents, etc
