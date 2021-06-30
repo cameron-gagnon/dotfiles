@@ -185,12 +185,13 @@ set encoding=utf-8              "set default encoding to utf-8
 
 let python_highlight_all = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   => Solarized
+"   => Color/Colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:solarized_termcolors=16  "Used the reduced set of 256 colors in terminal
 syntax enable                   "Enable syntax highlighting
 syntax on
 set background=dark
+set t_Co=256
 colorscheme gruvbox
 " Overrides gruvbox's SpellBad setting
 hi SpellBad ctermfg=NONE
