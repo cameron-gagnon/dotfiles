@@ -298,11 +298,11 @@ function prompt-command {
 ################################################################################
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-export PATH="/usr/local/bin:$PATH:$HOME/.rvm/bin"
+[ -s "/Users/stroopc/dotfiles/cmd_shortcuts/sourceme.sh" ] && source "/Users/stroopc/dotfiles/cmd_shortcuts/sourceme.sh"
+
+export PATH="/Users/stroopc/bin:/usr/local/bin:/Users/stroopc/stripe/space-commander/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-export GOPATH='/Users/cameron/src/college/F17/498_002/projects/proj2'
 
 if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
