@@ -31,7 +31,16 @@ auto-jump:
 always_forget:
 	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
 
+brew_install:
+	for package in jid; do \
+		brew install $$package; \
+	done
+
 binaries:
-	mkdir ~/bin
-	# https://github.com/simeji/jid
-	ln -sf ~/dotfiles/binaries/jid ~/bin/jid
+	mkdir -p ~/bin
+	for directory in ~/dotfiles/scripts ~/dotfiles/binaries; do \
+		for script in $$(ls -p $$directory | grep -v /); \
+		do \
+			ln -sf $$directory/$$script ~/bin/$${script%.*}; \
+		done \
+	done
