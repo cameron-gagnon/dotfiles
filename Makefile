@@ -8,6 +8,7 @@ misc: always_forget
 
 sym_link:
 	ln -sf ~/dotfiles/.bashrc.full ~/.bashrc
+	ln -sf ~/dotfiles/.zshrc.full ~/.zshrc
 	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
 	ln -sf ~/dotfiles/.vimrc.full ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
