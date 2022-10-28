@@ -8,7 +8,7 @@ function search_file() {
     echo "Searching $1 for $2..."
     # specify grep location in case it's aliased. when it's aliased it messes up
     # the way parameters are passed to the alias/function
-    /usr/bin/grep --color=auto -i "$2" "$1"
+    /usr/bin/grep --color=auto -i "$2" "$1" | less
 }
 
 function dpkgl() {
@@ -84,12 +84,12 @@ function bssh {
         cd ~
         if [ $(ssh $server '[ ! -d ./.vim/bundle ]') ];
         then
-            echo "Server $server does not have our configuration.  Configuring..."
+            echo "$Yellow Server $server does not have our configuration.  Configuring... $Reset"
             tar -hczf - .bashrc .bash_aliases .vimrc .gitconfig .vim/* .scm_breeze/* \
                 | ssh $server 'cd && tar -xzf -'
             ssh $server './.scm_breeze/install.sh'
         else
-            echo "Server $server already configured. SSHing in..."
+            echo "$Green Server $server already configured. SSHing in...  $Reset"
         fi
         ssh $server
     )
@@ -100,13 +100,46 @@ function git_checkout_branch {
 }
 
 function ctags_fn {
-    "`brew --prefix`/bin/ctags"
+    `brew --prefix`/bin/ctags $@
 }
 
+function overthewire {
+    pass=$(cat ~/ctfs/overthewire/passwords | grep "level$1:" | cut -d' ' -f2)
+    exp $pass ssh bandit$1@bandit.labs.overthewire.org -p 2220
+}
+
+function tf12() {
+    export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+}
+
+function __last_command() {
+    fc -ln -1 | awk '{$1=$1}1' | pbcopy
+}
+
+function __pr_review() {
+    # open new pane in vertical split with command `grip...`
+    tmux split-window -v grip -b ~/.pr_review
+
+    # select pane above target
+    tmux select-pane -U
+    vim ~/.pr_review
+}
+
+function __tmux_rename_window() {
+    tmux rename-window $@
+}
+
+function todo() {
+    vim ~/.todo
+}
+
+# scm_breeze wrappers
+alias v='ge vim'
+alias rm='ge /bin/rm'
+alias cat='ge /bin/cat'
 
 #login for linux terminal on CAEN Servers
 alias e='exit'
-alias v='ge vim'
 alias o='open'
 #alias ls='ls -Ga --color'
 alias l='ls -lah'
@@ -125,16 +158,17 @@ alias gcm='git commit -m '
 alias goc='git checkout'
 alias vedit='v ~/.vimrc'
 #alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
-alias gup='git pull --rebase'
+alias gup='git checkout master && git pull --rebase && git checkout - && git rebase origin/master'
 alias gignore='git update-index --assume-unchanged $@'
 alias gunignore='git update-index --no-assume-unchanged $@'
+alias grbim='git rebase -i master'
 alias sstart='_sysctl start $1'
 alias sstatus='_sysctl status $1'
 alias sstop='_sysctl stop $1'
 alias senable='_sysctl enable $1'
 alias sdisable='_sysctl disable $1'
 alias srestart='_sysctl restart $1'
-alias h='search_file ~/.bash_log'
+alias hist='search_file ~/.shell_log'
 alias af='search_file ~/.always_forget.txt'
 alias fsh='fixssh'
 alias myip="curl ifconfig.co"
@@ -149,3 +183,15 @@ alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclu
 alias ipinfo='curl ipinfo.io'
 alias gocb='git_checkout_branch'
 alias rgf='rg --files | rg'
+alias gdoc='go doc'
+alias glf='gl -p -- $@'
+alias tf='terraform'
+alias tfi='tf init'
+alias tfp='tf plan -out tfplan | less'
+alias tfs='tf show tfplan | less'
+alias tfsp='tf state pull > terraform.tfstate'
+alias pip='pip3'
+alias lc='__last_command'
+alias prr='__pr_review $@'
+alias tre='__tmux_rename_window'
+alias cnw='code --new-window ./'
