@@ -49,6 +49,8 @@ Plugin 'mbbill/undotree'
 
 Plugin 'hashivim/vim-terraform'
 
+Plugin 'pangloss/vim-javascript'
+
 """ BEGIN GOD-LIKE SECTION """
 " for adding/removing comments
 Plugin 'tpope/vim-commentary'
