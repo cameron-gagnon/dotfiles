@@ -1002,6 +1002,11 @@ openssl x509 -noout -modulus -in filename.cert | openssl md5 # generate modulus 
 openssl rsa -noout -modulus -in filename.key | openssl md5 # generate modulus of key
 openssl crl2pkcs7 -nocrl -certfile $FILENAME | openssl pkcs7 -print_certs -text -noout # see chain of certificates in a file
 openssl x509 -pubkey -noout -in $FILENAME # print out public key in PEM form
+### SELF SIGN CERT WITH OPENSSL
+openssl req -new > cert.csr; openssl rsa -in privkey.pem -out key.pem
+openssl x509 -in cert.csr -out cert.pem -req -signkey key.pem -days 1001
+### END SELF SIGN CERT WITH OPENSSL
+
 echo | openssl s_client -showcerts -servername $SERVERNAME -connect $SERVERNAME:443 2>/dev/null | openssl x509 -inform pem -noout -text
 zip --encrypt -r DIR DIR                # create encrypted zip archive
 sudo openvpn myconfig.ovpn              # start VPN connection
@@ -1541,6 +1546,14 @@ git diff master origin/master           # see changes
 git merge origin/master                 # this will be a FF if no local changes
 git rebase origin/master                #
 git rebase --onto <newparent> <oldparent>
+# We rebase the commit reachable from HEAD (my-branch) whose parent commit is D on
+# top of the F commit. So, we can say that we change the parent of commit E from D
+# to F
+# Before                                    After
+# A---B---C---F---G (branch)                A---B---C---F---G (branch)
+#          \                                             \
+#           D---E---H---I (HEAD my-branch)                E'---H'---I' (HEAD my-branch)
+git rebase --onto F D my-branch
 
 # Commit
 git branch                              # check your branch
