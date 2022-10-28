@@ -12,27 +12,29 @@
 # The first example lets you type `git st` instead of `git status`.
 # The second example augments `git log` to include a summary of changed files
 # and to show only the commit titles.
-# The last exaples are the `git graph` command we showed in lecture.
+# The last examples are the `git graph` command we showed in lecture.
 # Try them out!
+# require prefix of `git $ALIAS` to work
 [alias]
-    st = status
-    ll = log --stat --abbrev-commit
-    gl = log --graph --full-history --all --color --pretty=tformat:"%C(red)%h%C(reset)%x09%C(green)%d%C(reset)%C(bold)%s%C(reset)%C(yellow)(%an)%C(reset)"
-    gcm = commit -m            # commit and add message
-    gc = clone
-    go = checkout              # git checkout a branch
-    gs = status'
-    gaa = add .                # add all unstaged, modified, and deleted files
-    ga = add                   # add a single file at a time
-    gg1 = graph1               # helpful graph command for looking at logs
-    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+	st = status
+	ll = log --stat --abbrev-commit
+	gl = log --graph --full-history --all --color --pretty=tformat:"%C(red)%h%C(reset)%x09%C(green)%d%C(reset)%C(bold)%s%C(reset)%C(yellow)(%an)%C(reset)"
+	gcm = commit -m            # commit and add message
+	gc = clone
+	go = checkout              # git checkout a branch
+	gs = status'
+	gaa = add .                # add all unstaged, modified, and deleted files
+	ga = add                   # add a single file at a time
+	gg1 = graph1               # helpful graph command for looking at logs
+	mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+	glng = log -n10 --full-history --all --color --pretty=tformat:"%C(red)%h%C(reset)%x09%C(green)%d%C(reset)%C(bold)%s%C(reset)%C(yellow)(%an)%C(reset)"
 
 #[init]
 #    templatedir = ~/.git_template
 [rerere]
     enabled = true
 [core]
-    excludesfile = /Users/cameron/.gitignore_global
+	excludesfile = /Users/stroopc/.gitignore
 [branch]
 	autoSetupMerge = always
 [init]
