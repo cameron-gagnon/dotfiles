@@ -1,4 +1,4 @@
-#d ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -45,16 +45,16 @@ esac
 # should be on the output of commands, not on the prompt
 force_color_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=yes
-    fi
-fi
+#if [ -n "$force_color_prompt" ]; then
+#    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+#	# We have color support; assume it's compliant with Ecma-48
+#	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+#	# a case would tend to support setf rather than setaf.)
+#	color_prompt=yes
+#    else
+#	color_prompt=yes
+#    fi
+#fi
 
 #Reset
 Reset='\e[0m'       # Text Reset
@@ -144,7 +144,7 @@ if [ "$color_prompt" = yes ]; then
         fi
     }
     #PS1="$grey \$? \$(if [[ \$? == 0 ]]; then echo \"$green$checkMark\"; else echo \"$red$cross\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[0;31m\]\h'; else echo '\[\033[01;32m\][\T]$(_bg_job_info)\033[01;35m$(declare -F __git_ps1 &> /dev/null && __git_ps1)\033[0m\033[03;39m\u@\h '; fi)\[\033[03;39m\]\w\n\033[01;30m$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
-    PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[0;31m\]\h'; else echo '\[\033[01;37m\][\T]\[\033[0m\]$(_bg_job_info)\[\033[00;33m\]$(declare -F __git_ps1 &> /dev/null && __git_ps1) \[\033[0m\]\[\033[3;34m\]\u@\h\[\033[0m\] '; fi)\[\033[3;33m\]\w\n\[\033[01;30m\]$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
+    #PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]];then echo '\[\033[0;31m\]\h'; else echo '\[\033[01;37m\][\T]\[\033[0m\]$(_bg_job_info)\[\033[00;33m\]$(declare -F __git_ps1 &> /dev/null && __git_ps1) \[\033[0m\]\[\033[3;34m\]\u@\h\[\033[0m\] '; fi)\[\033[3;33m\]\w\n\[\033[01;30m\]$(echo -e '\xE2\x98\xA0') \[\033[00m\] "
 
 
     PS2="continue -->"
@@ -288,19 +288,21 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 
 # export all shell commands to ~/.bashrc_log for better searching across
 # multiple sessions
-export PROMPT_COMMAND='prompt-command'
 function prompt-command {
-   date "+%Y-%m-%d %I:%M:%S_%P ${PWD} [$?] \$ $(history 1 | cut -d' ' -f4-)" >> ~/.bashrc_log
+   date "+%Y-%m-%d %I:%M:%S ${PWD} [$?] \$ $(history 1 | cut -d' ' -f4-)" >> ~/.shell_log
 }
+export PROMPT_COMMAND='prompt-command'
 
 ################################################################################
 #######                     RUBY LOCAL INSTALL                         #########
 ################################################################################
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+################################################################################
+#######                   END RUBY LOCAL INSTALL                       #########
+################################################################################
 
 [ -s "/Users/stroopc/dotfiles/cmd_shortcuts/sourceme.sh" ] && source "/Users/stroopc/dotfiles/cmd_shortcuts/sourceme.sh"
 
-export PATH="/Users/stroopc/bin:/usr/local/bin:/Users/stroopc/stripe/space-commander/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -308,4 +310,4 @@ if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
-[ -s "/Users/cameron/.scm_breeze/scm_breeze.sh" ] && source "/Users/cameron/.scm_breeze/scm_breeze.sh"
+. "$HOME/.cargo/env"
