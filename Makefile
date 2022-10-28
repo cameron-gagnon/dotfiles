@@ -14,7 +14,7 @@ sym_link:
 
 scm_breeze:
 	if [ ! -d "$(HOME)/.scm_breeze" ]; then \
-		git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze; \
+		git clone https://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze; \
 		~/.scm_breeze/install.sh; \
 		. ~/.bashrc; \
 	fi
@@ -24,7 +24,7 @@ vundle:
 	fi
 
 auto-jump:
-	git clone git://github.com/wting/autojump.git
+	git clone https://github.com/wting/autojump.git
 	cd autojump
 	./install.py
 
