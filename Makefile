@@ -6,9 +6,15 @@ misc: always_forget
 
 .PHONY: binaries
 
+tpm:
+	if [ ! -d "$(HOME)/.tmux/plugins/tpm" ]; then \
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; \
+	fi
+
 sym_link:
 	ln -sf ~/dotfiles/.bashrc.full ~/.bashrc
 	ln -sf ~/dotfiles/.zshrc.full ~/.zshrc
+	ln -sf ~/dotfiles/.tmux.conf.full ~/.tmux.conf
 	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
 	ln -sf ~/dotfiles/.vimrc.full ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
@@ -20,7 +26,7 @@ scm_breeze:
 		. ~/.bashrc; \
 	fi
 vundle:
-	if [ ! -d "$($HOME)/.vim/bundle" ]; then \
+	if [ ! -d "$(HOME)/.vim/bundle/Vundle.vim" ]; then \
 		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
 	fi
 
