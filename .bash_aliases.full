@@ -96,7 +96,7 @@ function bssh {
 }
 
 function git_checkout_branch {
-    git checkout -b ${USER}/$@
+    git checkout -b ${USER}-$@
 }
 
 function ctags_fn {
@@ -137,12 +137,12 @@ function todo() {
 alias v='ge vim'
 alias rm='ge /bin/rm'
 alias cat='ge /bin/cat'
+alias tree='ge $(/usr/bin/which tree)'
+alias l='ge $(/usr/bin/which ls) -lah'
 
 #login for linux terminal on CAEN Servers
 alias e='exit'
 alias o='open'
-#alias ls='ls -Ga --color'
-alias l='ls -lah'
 alias c='clear'
 alias ..="cd .."
 alias ..2="cd ../.."
