@@ -193,10 +193,10 @@ let python_highlight_all = 1
 syntax enable                   "Enable syntax highlighting
 syntax on
 set background=dark
-set t_Co=256
-colorscheme gruvbox
+"set t_Co=256
 " Overrides gruvbox's SpellBad setting
-hi SpellBad ctermfg=NONE
+"hi SpellBad ctermfg=NONE
+colorscheme 1989
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Core Vim Config
