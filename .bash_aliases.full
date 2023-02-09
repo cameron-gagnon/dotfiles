@@ -103,9 +103,19 @@ function ctags_fn {
     `brew --prefix`/bin/ctags $@
 }
 
-function overthewire {
-    pass=$(cat ~/ctfs/overthewire/passwords | grep "level$1:" | cut -d' ' -f2)
-    exp $pass ssh bandit$1@bandit.labs.overthewire.org -p 2220
+# otw 1 will log into level 1
+function __ssh_overthewire {
+    levelNum=$1
+    password=$(cat ~/ctfs/overthewire/bandit/level_passwords.txt | grep "level$levelNum:" | cut -d':' -f2)
+    hostname="bandit$levelNum@bandit.labs.overthewire.org"
+    sshBin="/usr/bin/ssh"
+    portFlag="-p"
+    portNum=2220
+
+    open -a "/Applications/Google Chrome.app" https://overthewire.org/wargames/bandit/bandit$(( levelNum + 1)).html
+
+    echo "enter the following password when prompted:\n$password"
+    $sshBin $hostname $portFlag $portNum
 }
 
 function tf12() {
@@ -141,57 +151,56 @@ alias tree='ge $(/usr/bin/which tree)'
 alias l='ge $(/usr/bin/which ls) -lah'
 
 #login for linux terminal on CAEN Servers
-alias e='exit'
-alias o='open'
-alias c='clear'
-alias ..="cd .."
+#alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
 alias ..2="cd ../.."
 alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
-alias most="history | cut -c 8- | sort | uniq -c | sort"
-alias edit="v ~/.bash_aliases"
-alias u='. ~/.bashrc'
-alias mod='chmod +x'
+alias ..="cd .."
 alias act='. venv/bin/activate'
+alias af='search_file ~/.always_forget.txt'
+alias ba="v ~/.bash_aliases"
+alias be='bundle exec'
+alias bi='bundle install'
+alias c='clear'
+alias check_mod='check_mod $@'
+alias cnw='code --new-window ./'
+alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
+alias ctags="ctags_fn"
+alias e='exit'
+alias fsh='fixssh'
 alias gcm='git commit -m '
-alias goc='git checkout'
-alias vedit='v ~/.vimrc'
-#alias grep='grep --color=auto --exclude-dir venv --exclude-dir .git $@'
-alias gup='git checkout master && git pull --rebase && git checkout - && git rebase origin/master'
+alias gdoc='go doc'
 alias gignore='git update-index --assume-unchanged $@'
-alias gunignore='git update-index --no-assume-unchanged $@'
+alias glf='gl -p -- $@'
+alias goc='git checkout'
+alias gocb='git_checkout_branch'
 alias grbim='git rebase -i master'
+alias gunignore='git update-index --no-assume-unchanged $@'
+alias gup='git checkout master && git pull --rebase && git checkout - && git rebase origin/master'
+alias hist='search_file ~/.shell_log'
+alias ipinfo='curl ipinfo.io'
+alias lc='__last_command'
+alias mod='chmod +x'
+alias most="history | cut -c 8- | sort | uniq -c | sort"
+alias myip="curl ifconfig.co"
+alias o='open'
+alias otw='__ssh_overthewire'
+alias otwl='v ~/ctfs/overthewire/bandit/level_passwords.txt'
+alias pip='pip3'
+alias prr='__pr_review $@'
+alias rgf='rg --files | rg'
+alias sdisable='_sysctl disable $1'
+alias senable='_sysctl enable $1'
+alias srestart='_sysctl restart $1'
 alias sstart='_sysctl start $1'
 alias sstatus='_sysctl status $1'
 alias sstop='_sysctl stop $1'
-alias senable='_sysctl enable $1'
-alias sdisable='_sysctl disable $1'
-alias srestart='_sysctl restart $1'
-alias hist='search_file ~/.shell_log'
-alias af='search_file ~/.always_forget.txt'
-alias fsh='fixssh'
-alias myip="curl ifconfig.co"
-alias ctags="ctags_fn"
-alias check_mod='check_mod $@'
-alias bi='bundle install'
-alias be='bundle exec'
 alias ta='tmux a || create_tmux_setup'
-alias vcrt='verify_x509_cert'
-alias vcrts='verify_x509_certs'
-alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
-alias ipinfo='curl ipinfo.io'
-alias gocb='git_checkout_branch'
-alias rgf='rg --files | rg'
-alias gdoc='go doc'
-alias glf='gl -p -- $@'
 alias tf='terraform'
 alias tfi='tf init'
 alias tfp='tf plan -out tfplan | less'
 alias tfs='tf show tfplan | less'
 alias tfsp='tf state pull > terraform.tfstate'
-alias pip='pip3'
-alias lc='__last_command'
-alias prr='__pr_review $@'
 alias tre='__tmux_rename_window'
 alias cnw='code --new-window ./'
