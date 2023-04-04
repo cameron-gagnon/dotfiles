@@ -289,7 +289,7 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 # export all shell commands to ~/.bashrc_log for better searching across
 # multiple sessions
 function prompt-command {
-   date "+%Y-%m-%d %I:%M:%S ${PWD} [$?] \$ $(history 1 | cut -d' ' -f4-)" >> ~/.shell_log
+   date "+%Y-%m-%d %I:%M:%S ${PWD} [$?] \$ $(history 1 | cut -d' ' -f3-)" >> ~/.shell_log
 }
 export PROMPT_COMMAND='prompt-command'
 
@@ -310,4 +310,6 @@ if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
-. "$HOME/.cargo/env"
+# if command -v tmux>/dev/null; then
+#   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+# fi
