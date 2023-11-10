@@ -20,6 +20,7 @@ bind-key s split-window -v -c "#{pane_current_path}"
 set-window-option -g mode-keys vi
 bind-key -T copy-mode-vi 'v' send -X begin-selection
 bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
+unbind -T copy-mode-vi MouseDragEnd1Pane # don't jump back to end of buffer after copying
 
 # re-order windows:
 # https://unix.stackexchange.com/questions/151329/reorder-tmux-windows
