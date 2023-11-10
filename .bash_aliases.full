@@ -103,16 +103,22 @@ function ctags_fn {
     `brew --prefix`/bin/ctags $@
 }
 
-# otw 1 will log into level 1
+# otwb 1 will log into bandit level 1
 function __ssh_overthewire {
-    levelNum=$1
-    password=$(cat ~/ctfs/overthewire/bandit/level_passwords.txt | grep "level$levelNum:" | cut -d':' -f2)
-    hostname="bandit$levelNum@bandit.labs.overthewire.org"
+    if [[ -z "$3" ]];
+    then
+      echo "Must provide level password. e.g. 'otwu 1'"
+      return
+    fi
+    username=$1
+    portNum=$2
+    levelNum=$3
+    password=$(cat ~/ctfs/overthewire/$username/level_passwords.txt | grep "level$levelNum:" | cut -d':' -f2)
+    hostname="$username$levelNum@$username.labs.overthewire.org"
     sshBin="/usr/bin/ssh"
     portFlag="-p"
-    portNum=2220
 
-    open -a "/Applications/Google Chrome.app" https://overthewire.org/wargames/bandit/bandit$(( levelNum + 1)).html
+    open -a "/Applications/Google Chrome.app" https://overthewire.org/wargames/$username/$username$(( levelNum + 1)).html
 
     echo "enter the following password when prompted:\n$password"
     $sshBin $hostname $portFlag $portNum
@@ -148,7 +154,7 @@ alias v='ge vim'
 alias rm='ge /bin/rm'
 alias cat='ge /bin/cat'
 alias tree='ge $(/usr/bin/which tree)'
-alias l='ge $(/usr/bin/which ls) -lah'
+#alias l='exec_scmb_expand_args $(/usr/bin/which ls) -lah'
 alias cp='ge $(/usr/bin/which cp)'
 
 #login for linux terminal on CAEN Servers
@@ -164,7 +170,7 @@ alias ba="v ~/.bash_aliases"
 alias be='bundle exec'
 alias bi='bundle install'
 alias c='clear'
-alias check_mod='check_mod $@'
+alias check_mod='check_mod'
 alias cnw='code --new-window ./'
 alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
 alias ctags="ctags_fn"
@@ -174,40 +180,43 @@ alias gap='git add -p'
 alias gcm='git commit -m '
 alias gcmh='git commit --amend --no-edit'
 alias gdoc='go doc'
-alias gignore='git update-index --assume-unchanged $@'
+alias gignore='git update-index --assume-unchanged'
 alias goc='git checkout'
 alias gocb='git_checkout_branch'
-alias grbim='git rebase -i master'
-alias gunignore='git update-index --no-assume-unchanged $@'
-alias gup='git checkout master && git pull --rebase && git checkout - && git rebase origin/master'
 alias gpsf='git push --force'
+alias grbim='git rebase -i master'
 alias grs='git reset'
-alias hist='search_file ~/.shell_log'
+alias gunignore='git update-index --no-assume-unchanged'
+alias gup='git checkout master && git pull --rebase && git checkout - && git rebase origin/master'
+alias hist='search_file ~/.shell_log | grep -i'
 alias ipinfo='curl ipinfo.io'
 alias lc='__last_command'
 alias mod='chmod +x'
 alias most="history | cut -c 8- | sort | uniq -c | sort"
 alias myip="curl ifconfig.co"
 alias o='open'
-alias otw='__ssh_overthewire'
+alias otwb='__ssh_overthewire bandit 2220'
 alias otwl='v ~/ctfs/overthewire/bandit/level_passwords.txt'
+alias otwu='__ssh_overthewire utumno 2227'
 alias pip='pip3'
-alias prr='__pr_review $@'
+alias prr='__pr_review'
 alias rgf='rg --files | rg'
-alias sdisable='_sysctl disable $1'
-alias senable='_sysctl enable $1'
-alias srestart='_sysctl restart $1'
-alias sstart='_sysctl start $1'
-alias sstatus='_sysctl status $1'
-alias sstop='_sysctl stop $1'
+alias sdisable='_sysctl disable'
+alias senable='_sysctl enable'
+alias srestart='_sysctl restart'
+alias sstart='_sysctl start'
+alias sstatus='_sysctl status'
+alias sstop='_sysctl stop'
 alias ta='tmux a || create_tmux_setup'
+alias tc='cat tmp | pbcopy'
 alias tf='terraform'
+alias tfa='tf apply'
 alias tfi='tf init'
-alias tfp='tf plan -out tfplan | less'
+alias tfp='tf plan -out tfplan'
 alias tfs='tf show tfplan | less'
 alias tfsp='tf state pull > terraform.tfstate'
 alias tre='__tmux_rename_window'
-alias u='. ~/.bashrc'
+alias u='. ~/.bashrc && . ~/.zshrc'
 alias vcrt='verify_x509_cert'
 alias vcrts='verify_x509_certs'
 alias vedit='v ~/.vimrc'
