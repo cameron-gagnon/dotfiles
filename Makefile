@@ -63,3 +63,7 @@ binaries:
 	echo "installing der-ascii"
 	go install github.com/google/der-ascii/cmd/...@latest
 
+pr_file_checker:
+	cd ~/dotfiles/pr-file-checker; \
+		go build -o prfc main.go; \
+		ln -sf ~/dotfiles/pr-file_checker/prfc ~/bin/prfc
