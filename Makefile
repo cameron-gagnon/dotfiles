@@ -4,6 +4,8 @@ plugins: scm_breeze vundle
 
 misc: always_forget
 
+zsh: zsh_syntax_highlighting
+
 .PHONY: binaries
 
 tpm:
@@ -43,6 +45,12 @@ brew_install:
 		brew install $$package; \
 	done
 
+zsh_syntax_highlighting:
+	if [ ! -d "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then \
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"; \
+	fi
+
+
 binaries:
 	mkdir -p ~/bin
 	for directory in ~/dotfiles/scripts ~/dotfiles/binaries; do \
@@ -51,3 +59,7 @@ binaries:
 			ln -sf $$directory/$$script ~/bin/$${script%.*}; \
 		done \
 	done
+
+	echo "installing der-ascii"
+	go install github.com/google/der-ascii/cmd/...@latest
+
