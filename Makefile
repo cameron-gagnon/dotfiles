@@ -4,7 +4,7 @@ plugins: scm_breeze vundle
 
 misc: always_forget
 
-zsh: zsh_syntax_highlighting
+zsh: zsh_config
 
 .PHONY: binaries
 
@@ -45,12 +45,16 @@ brew_install:
 		brew install $$package; \
 	done
 
-zsh_syntax_highlighting:
+zsh_config:
 	if [ ! -d "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then \
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"; \
 	fi
-
-
+	if [ ! -d "$(HOME)/powerlevel10k" ]; then \
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k; \
+	fi
+	if [ ! -d "$(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then \
+		git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
+	fi
 binaries:
 	mkdir -p ~/bin
 	for directory in ~/dotfiles/scripts ~/dotfiles/binaries; do \
