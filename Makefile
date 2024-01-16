@@ -1,8 +1,6 @@
-install: sym_link plugins misc binaries
+mac: scm_breeze vundle brew_packages zsh sym_link binaries
 
-plugins: scm_breeze vundle
-
-misc: always_forget
+windows: scm_breeze sym_link
 
 zsh: zsh_config
 
@@ -20,6 +18,7 @@ sym_link:
 	ln -sf ~/dotfiles/.bash_aliases.full ~/.bash_aliases
 	ln -sf ~/dotfiles/.vimrc.full ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
+	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
 
 scm_breeze:
 	if [ ! -d "$(HOME)/.scm_breeze" ]; then \
@@ -37,13 +36,13 @@ auto-jump:
 	cd autojump
 	./install.py
 
-always_forget:
-	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
 
-brew_install:
-	for package in jid; do \
+brew_packages:
+	packages=(jid fzf); \
+	for package in "$$packages[@]"; do \
 		brew install $$package; \
-	done
+	done; \
+	$$(brew --prefix)/opt/fzf/install
 
 zsh_config:
 	if [ ! -d "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then \
