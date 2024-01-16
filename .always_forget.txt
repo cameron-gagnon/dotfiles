@@ -1768,3 +1768,18 @@ rg -g '*glob*' --files <directory> # search by filename
 ######################################
 defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+
+######################################
+# Chrome
+######################################
+Create a bookmarklet with the following to skip to the end of ads:
+```js
+ad = [...document.querySelectorAll('.ad-showing')][0];
+if(ad != null) {
+    video = document.querySelector('video');
+    video.currentTime = video.duration;
+}
+```
+
+# create bookmarklet with this prompt
+prompt("Result is", "javascript:"+encodeURI(prompt("Paste js below")))
