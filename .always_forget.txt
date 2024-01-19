@@ -1783,3 +1783,10 @@ if(ad != null) {
 
 # create bookmarklet with this prompt
 prompt("Result is", "javascript:"+encodeURI(prompt("Paste js below")))
+
+######################################
+# Creating/converting videos to GIFs
+######################################
+brew install ffmpeg gifsicle
+ffmpeg -i something.mov -pix_fmt rgb24 -r 60 -f gif - | gifsicle --optimize=2 --delay=2 --resize=965x1134 > something.gif
+gifski # recommended by someone else
