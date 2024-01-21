@@ -4,7 +4,7 @@ ag_shortcuts() {
     orig_ag="/opt/homebrew/bin/ag"
     cmd_output=$(mktemp)
 
-    $orig_ag --color --color-path '1;31' --group ${@} | /usr/bin/env ruby "$HOME/dotfiles/cmd_shortcuts/ag_wrapper.rb" > $cmd_output
+    $orig_ag --color --color-path '1;31' --group "${@}" | /usr/bin/env ruby "$HOME/dotfiles/cmd_shortcuts/ag_wrapper.rb" > $cmd_output
 
     # Fetch list of files from last line of script output
     files="$(cat $cmd_output | \grep '@@filelist@@::' | sed 's%@@filelist@@::%%g')"
