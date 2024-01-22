@@ -194,15 +194,23 @@ export PROMPT_COMMAND='prompt-command'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+################################################################################
+######                          GOLANG CONFIG                           ########
+################################################################################
+export GOROOT=/usr/local/go
+export GOPATH=/mnt/e/src/projammin/twitch-dash
+################################################################################
+######                        END GOLANG CONFIG                           ######
+################################################################################
+
 [ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
 
 # must come after sourcing `scm_breeze` shortcutes otherwise `ge` will not be defined for use
 [ -s ~/dotfiles/cmd_shortcuts/sourceme.sh ] && source ~/dotfiles/cmd_shortcuts/sourceme.sh
 [ -s ~/.bash_aliases ] && source ~/.bash_aliases
 
-cd ~/src
-
 if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
+[ -s ~/.localrc.sh ] && source ~/.localrc.sh
