@@ -1,5 +1,5 @@
 mac: scm_breeze vundle brew_packages zsh sym_link binaries
-
+linux: scm_breeze vundle sym_link binaries
 windows: scm_breeze sym_link
 
 zsh: zsh_config
