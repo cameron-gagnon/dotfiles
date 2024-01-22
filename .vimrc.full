@@ -197,7 +197,7 @@ set background=dark
 "set t_Co=256
 " Overrides gruvbox's SpellBad setting
 "hi SpellBad ctermfg=NONE
-colorscheme 1989
+colorscheme solarized
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   => Core Vim Config
