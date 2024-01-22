@@ -19,10 +19,6 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-#shopt -s checkwinsize
-
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
@@ -162,104 +158,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-#if [ -x /usr/bin/dircolors ]; then
-#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-#   alias ls='ls --color=auto'
-#   alias dir='dir --color=auto'
-#   #alias vdir='vdir --color=auto'
-#
-#   alias grep='grep --color=auto'
-#   alias fgrep='fgrep --color=auto'
-#   alias egrep='egrep --color=auto'
-#fi
-
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-#if ! shopt -oq posix; then
-#  if [ -f /usr/share/bash-completion/bash_completion ]; then
-#    . /usr/share/bash-completion/bash_completion
-#  elif [ -f /etc/bash_completion ]; then
-#    . /etc/bash_completion
-#  fi
-#fi
-
-
-### changes ls color output
-#Blue = 34
-#Green = 32
-#Light Green = 1;32
-#Cyan = 36
-#Red = 31
-#Purple = 35
-#Brown = 33
-#Yellow = 1;33
-#white = 1;37
-#Light Grey = 0;37
-#Black = 30
-#Dark Grey= 1;30
-
-#31  = red
-#32  = green
-#33  = orange
-#34  = blue
-#35  = purple
-#36  = cyan
-#37  = grey
-#90  = dark grey
-#91  = light red
-#92  = light green
-#93  = yellow
-#94  = light blue
-#95  = light purple
-#96  = turquoise
-
-# first number is font, followed by ';' then actual color
-#0   = default colour
-#1   = bold
-#4   = underlined
-#5   = flashing text
-#7   = reverse field
-#40  = black background
-#41  = red background
-#42  = green background
-#43  = orange background
-#44  = blue background
-#45  = purple background
-#46  = cyan background
-#47  = grey background
-#100 = dark grey background
-#101 = light red background
-#102 = light green background
-#103 = yellow background
-#104 = light blue background
-#105 = light purple background
-#106 = turquoise background
-
-# files/directory color specifics
-#di = directory
-#fi = file
-#ln = symbolic link
-#pi = fifo file
-#so = socket file
-#bd = block (buffered) special file
-#cd = character (unbuffered) special file
-#or = symbolic link pointing to a non-existent file (orphan)
-#mi = non-existent file pointed to by a symbolic link (visible when you type ls -l)
-#ex = file which is executable (ie. has 'x' set in permissions).
-#*.rpm = files with the ending .rpm
-
 LS_COLORS=$LS_COLORS:'di=1;4;31'
 export LS_COLORS
 IGNOREEOF=10 # Shell only exits after the 10th consecutive Ctrl-d
@@ -292,24 +190,18 @@ function prompt-command {
    date "+%Y-%m-%d %I:%M:%S ${PWD} [$?] \$ $(history 1 | cut -d' ' -f3-)" >> ~/.shell_log
 }
 export PROMPT_COMMAND='prompt-command'
-
-################################################################################
-#######                     RUBY LOCAL INSTALL                         #########
-################################################################################
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-################################################################################
-#######                   END RUBY LOCAL INSTALL                       #########
-################################################################################
-
-[ -s "/Users/stroopc/dotfiles/cmd_shortcuts/sourceme.sh" ] && source "/Users/stroopc/dotfiles/cmd_shortcuts/sourceme.sh"
-
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+[ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
+
+# must come after sourcing `scm_breeze` shortcutes otherwise `ge` will not be defined for use
+[ -s ~/dotfiles/cmd_shortcuts/sourceme.sh ] && source ~/dotfiles/cmd_shortcuts/sourceme.sh
+[ -s ~/.bash_aliases ] && source ~/.bash_aliases
+
+cd ~/src
 
 if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
-# if command -v tmux>/dev/null; then
-#   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
-# fi
