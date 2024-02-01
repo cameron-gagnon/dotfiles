@@ -1758,6 +1758,11 @@ go get # changes the required version of a dependency (or adds a new dependency)
 go mod tidy # removes unused dependencies
 go list -m all # prints the current module's dependencies
 
+# install a new golang version (SEO go version)
+go install golang.org/dl/go1.22rc2@latest
+$HOME/go/bin/go1.22rc2 download
+export PATH="$HOME/sdk/go1.22rc2/bin:$PATH"
+
 ######################################
 # Tools
 # RipGrep rg
