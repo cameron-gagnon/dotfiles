@@ -1,3 +1,5 @@
+UNAME := $(shell uname)
+
 mac: scm_breeze vundle brew_packages zsh sym_link binaries
 linux: scm_breeze vundle sym_link binaries
 windows: scm_breeze sym_link
@@ -19,6 +21,11 @@ sym_link:
 	ln -sf ~/dotfiles/.vimrc.full ~/.vimrc
 	ln -sf ~/dotfiles/.gitconfig.full ~/.gitconfig
 	ln -sf ~/dotfiles/.always_forget.txt ~/.always_forget.txt
+# assumes vscode is installed on a mac
+ifeq ($(UNAME), Darwin)
+	ln -sf ~/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+	ln -sf ~/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+endif
 
 scm_breeze:
 	if [ ! -d "$(HOME)/.scm_breeze" ]; then \
