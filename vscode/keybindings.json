@@ -1,39 +1,5 @@
 // Place your key bindings in this file to override the defaults
 [
-    // surround text with quotes
-    // https://stackoverflow.com/a/53545200/2319588
-    // {
-    //     "key": "'",
-    //     "command": "editor.action.insertSnippet",
-    //     "when": "editorHasSelection",
-    //     "args": {
-    //         "snippet": "'${TM_SELECTED_TEXT}'"
-    //     }
-    // },
-    // {
-    //     "key": "shift+'",
-    //     "command": "editor.action.insertSnippet",
-    //     "when": "editorHasSelection",
-    //     "args": {
-    //         "snippet": "\"${TM_SELECTED_TEXT}\""
-    //     }
-    // },
-    {
-        "key": "shift+]",
-        "command": "editor.action.insertSnippet",
-        "when": "editorHasSelection",
-        "args": {
-            "snippet": "{${TM_SELECTED_TEXT}}"
-        }
-    },
-    {
-        "key": "shift+[",
-        "command": "editor.action.insertSnippet",
-        "when": "editorHasSelection",
-        "args": {
-            "snippet": "{${TM_SELECTED_TEXT}}"
-        }
-    },
     {
         "key": "[",
         "command": "editor.action.insertSnippet",
