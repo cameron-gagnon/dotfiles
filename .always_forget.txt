@@ -1613,6 +1613,11 @@ git push -d <remote_name> <branch_name> # delete remote branch
 	url = git@github.com:joyent/node.git
 	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
 
+######################################
+# Bulk Pull Request review commands
+######################################
+git diff <BASE-COMMIT-OF-PR> -U0 -w -- '**/*.yaml' | rg -e '^[+-] ' | rg -v -e 'last_modified' | sort | uniq -c
+
 # Branching
 git branch                              # view current and local branches
 git branch -a                           # view all branches
@@ -1758,10 +1763,16 @@ go get # changes the required version of a dependency (or adds a new dependency)
 go mod tidy # removes unused dependencies
 go list -m all # prints the current module's dependencies
 
-# install a new golang version (SEO go version)
+# install a new golang version (SEO go version, go install, install go)
 go install golang.org/dl/go1.22rc2@latest
 $HOME/go/bin/go1.22rc2 download
 export PATH="$HOME/sdk/go1.22rc2/bin:$PATH"
+
+
+# see golang coverage for tests that ran
+go test -v -coverprofile cover.out ./YOUR_CODE_FOLDER/...
+go tool cover -html cover.out -o cover.html
+open cover.html
 
 ######################################
 # Tools
@@ -1795,3 +1806,12 @@ prompt("Result is", "javascript:"+encodeURI(prompt("Paste js below")))
 brew install ffmpeg gifsicle
 ffmpeg -i something.mov -pix_fmt rgb24 -r 60 -f gif - | gifsicle --optimize=2 --delay=2 --resize=965x1134 > something.gif
 gifski # recommended by someone else
+
+######################################
+# Public Key Cryptography Standards (PKCS)
+######################################
+PKCS#1 is RSA only
+PKCS#8 can support any algorithm
+PKCS#12 stores private keys with identities whereas the others only have keys
+PKCS#10 stores just a certification request with a public key needing identity verification
+
