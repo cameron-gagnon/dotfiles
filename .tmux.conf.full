@@ -20,12 +20,13 @@ bind-key s split-window -v -c "#{pane_current_path}"
 set-window-option -g mode-keys vi
 bind-key -T copy-mode-vi 'v' send -X begin-selection
 bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
-unbind -T copy-mode-vi MouseDragEnd1Pane # don't jump back to end of buffer after copying
+# don't jump back to end of buffer after copying
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection -x
 
 # re-order windows:
 # https://unix.stackexchange.com/questions/151329/reorder-tmux-windows
-bind-key -n S-Left swap-window -t -1
-bind-key -n S-Right swap-window -t +1
+bind-key -n C-S-Left swap-window -t -1
+bind-key -n C-S-Right swap-window -t +1
 
 # change colors of active/inactive windows so it's easier to tell which pane
 # is in use
@@ -55,3 +56,10 @@ run '~/.tmux/plugins/tpm/tpm'
 
 # don't exit copy mode after confirming copy selection
 set -g @yank_action 'copy-pipe'
+
+# escape-time sets the time in milliseconds for which tmux
+# waits after an escape is input to determine if it is part of a
+# function or meta key sequences. The default is 500 milliseconds.
+# This seems to have changed and is now set to 0 in my settings.
+# Possibly a bug with https://github.com/tmux/tmux/commit/2e9d7ebf15615b51b014a12de03b0e5483aadf99 ?
+set -s escape-time 20
