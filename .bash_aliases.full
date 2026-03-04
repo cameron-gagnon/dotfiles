@@ -99,6 +99,33 @@ function git_checkout_branch {
     git checkout -b ${USER}-$@
 }
 
+# Delete remote branches matching a prefix that have no corresponding local branch
+function git_prune_remote_branches() {
+    local prefix="${1:-stroop}"
+    local remote="${2:-origin}"
+    local branches
+    branches=$(/usr/bin/git branch -r --list "${remote}/${prefix}*" | sed "s|${remote}/||" | while read -r branch; do
+        if ! /usr/bin/git show-ref --verify --quiet "refs/heads/${branch}"; then
+            echo "$branch"
+        fi
+    done)
+
+    if [ -z "$branches" ]; then
+        echo "No remote branches matching '${prefix}*' without a local counterpart."
+        return 0
+    fi
+
+    echo "The following remote branches will be deleted from '${remote}':"
+    echo "$branches" | sed 's/^/  /'
+    echo ""
+    read -r "reply?Proceed? [y/N] "
+    if [[ "$reply" =~ ^[Yy]$ ]]; then
+        echo "$branches" | xargs /usr/bin/git push "${remote}" --delete
+    else
+        echo "Aborted."
+    fi
+}
+
 function ctags_fn {
     `brew --prefix`/bin/ctags $@
 }
@@ -124,10 +151,6 @@ function __ssh_overthewire {
     $sshBin $hostname $portFlag $portNum
 }
 
-function tf12() {
-    export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
-}
-
 function __last_command() {
     fc -ln -1 | awk '{$1=$1}1' | pbcopy
 }
@@ -149,11 +172,23 @@ function todo() {
     vim ~/.todo
 }
 
+# Opens an expandable/collapsible `git log --oneline` output.
+# Hit 'enter' on a commit line to view the full diff
+# Hit `q` to exit the full diff
+# Hit `q` again to exit the git log
+function git-log-browse() {
+	git log --oneline --graph --decorate --color=always | \
+	fzf --ansi --no-preview --reverse \
+		--bind 'j:down,k:up' \
+		--bind 'q:abort' \
+		--bind 'enter:execute(hash=$(echo {} | grep -o "[a-f0-9]\{7,\}" | head -1); git diff --color=always $hash^..$hash | less -R)'
+}
+
 # scm_breeze wrappers
 alias v='ge vim'
 alias rm='ge /bin/rm'
 alias cat='ge /bin/cat'
-alias tree='ge $(/usr/bin/which tree)'
+# alias tree='ge $(/usr/bin/which tree)'
 #alias l='exec_scmb_expand_args $(/usr/bin/which ls) -lah'
 alias cp='ge $(/usr/bin/which cp)'
 
@@ -163,8 +198,9 @@ alias ..2="cd ../.."
 alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
+alias ..6="cd ../../../../../.."
 alias ..="cd .."
-alias act='. venv/bin/activate'
+# alias act='. venv/bin/activate'
 alias af='search_file ~/.always_forget.txt'
 alias ba="v ~/.bash_aliases"
 alias be='bundle exec'
@@ -182,6 +218,7 @@ alias gcm='git commit -m '
 alias gcmh='git commit --amend --no-edit'
 alias gdoc='go doc'
 alias gignore='git update-index --assume-unchanged'
+alias glgp='git-log-browse'
 alias goc='git checkout'
 alias gocb='git_checkout_branch'
 alias gpsf='git push --force'
@@ -189,6 +226,7 @@ alias grbim='git rebase -i master'
 alias grs='git reset'
 alias gunignore='git update-index --no-assume-unchanged'
 alias gup='(git checkout master || git checkout main) && git pull --rebase && git checkout - && (git rebase origin/master || git rebase origin/main)'
+alias gprune='git_prune_remote_branches'
 alias hist='search_file ~/.shell_log | grep -i'
 alias ipinfo='curl ipinfo.io'
 alias lc='__last_command'
@@ -201,6 +239,7 @@ alias otwl='v ~/ctfs/overthewire/bandit/level_passwords.txt'
 alias otwu='__ssh_overthewire utumno 2227'
 alias pip='pip3'
 alias prr='__pr_review'
+alias rg="rg --hidden --glob '!.git'"
 alias rgf='rg --files | rg'
 alias sdisable='_sysctl disable'
 alias senable='_sysctl enable'
