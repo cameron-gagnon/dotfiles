@@ -1,7 +1,7 @@
 UNAME := $(shell uname)
 
-mac: scm_breeze vundle brew_packages zsh sym_link binaries
-linux: scm_breeze vundle sym_link binaries
+mac: scm_breeze vundle brew_packages zsh sym_link binaries claude
+linux: scm_breeze vundle sym_link binaries claude
 windows: scm_breeze sym_link
 
 zsh: zsh_config
@@ -72,6 +72,17 @@ binaries:
 
 	echo "installing der-ascii"
 	go install github.com/google/der-ascii/cmd/...@latest
+
+claude:
+	mkdir -p ~/.claude
+	ln -sf ~/dotfiles/claude/statusline.sh ~/.claude/statusline.sh
+	@SETTINGS=~/.claude/settings.json; \
+	if [ -f "$$SETTINGS" ]; then \
+		tmp=$$(mktemp); \
+		jq '.statusLine = {"type": "command", "command": (env.HOME + "/.claude/statusline.sh")}' "$$SETTINGS" > "$$tmp" && mv "$$tmp" "$$SETTINGS"; \
+	else \
+		jq -n '{"statusLine": {"type": "command", "command": (env.HOME + "/.claude/statusline.sh")}}' > "$$SETTINGS"; \
+	fi
 
 pr_file_checker:
 	cd ~/dotfiles/pr-file-checker; \
