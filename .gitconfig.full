@@ -39,3 +39,8 @@
 	autoSetupMerge = always
 [init]
 	defaultBranch = main
+
+# Machine-local overrides (SSH key routing, per-directory identities).
+# Not committed — see ~/.gitconfig.local
+[include]
+	path = ~/.gitconfig.local

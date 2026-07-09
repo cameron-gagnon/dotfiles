@@ -206,6 +206,8 @@ alias ba="v ~/.bash_aliases"
 alias be='bundle exec'
 alias bi='bundle install'
 alias c='clear'
+alias cai='claude --dangerously-skip-permissions'
+alias cair='claude --dangerously-skip-permissions --resume'
 alias check_mod='check_mod'
 alias cnw='code --new-window ./'
 alias ct='cdm && /usr/bin/ctags -R --exclude=node_modules --exclude=*.js --exclude=.git --exclude=vendor --exclude=public --exclude=private'
