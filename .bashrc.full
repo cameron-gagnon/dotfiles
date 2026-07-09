@@ -13,7 +13,8 @@ esac
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-shopt -s histappend
+# guard bash-only builtin: this file is also sourced from ~/.zshrc
+[ -n "$BASH_VERSION" ] && shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -21,7 +22,7 @@ HISTFILESIZE=2000
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-shopt -s globstar
+[ -n "$BASH_VERSION" ] && shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -209,8 +210,9 @@ export GOPATH=/mnt/e/src/projammin/twitch-dash
 [ -s ~/dotfiles/cmd_shortcuts/sourceme.sh ] && source ~/dotfiles/cmd_shortcuts/sourceme.sh
 [ -s ~/.bash_aliases ] && source ~/.bash_aliases
 
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
-fi
+# NOTE: tmux auto-start now lives at the top of ~/.zshrc (it must run before the
+# Powerlevel10k instant-prompt preamble, which captures console I/O). It was here
+# before but ran too late, so tmux failed with "open terminal failed: not a
+# terminal" and fell through to a plain shell.
 
 [ -s ~/.localrc.sh ] && source ~/.localrc.sh

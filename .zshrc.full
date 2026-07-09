@@ -1,3 +1,16 @@
+# --- tmux auto-start ---------------------------------------------------------
+# MUST stay above the p10k instant-prompt block below: instant prompt captures
+# console I/O, and tmux needs the real terminal to attach (otherwise it fails
+# with "open terminal failed: not a terminal"). Homebrew (where tmux lives on
+# Apple Silicon) isn't on PATH this early, so load its env first (no output).
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+if command -v tmux >/dev/null 2>&1 && [[ $- == *i* ]] && [ -z "$TMUX" ] && [[ ! $TERM =~ (screen|tmux) ]]; then
+  # On success `exit` closes the terminal cleanly when tmux ends (like the old
+  # `exec tmux`); on failure we fall through to a normal shell instead of dying.
+  tmux new-session && exit
+fi
+# -----------------------------------------------------------------------------
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -99,9 +112,11 @@ source $ZSH/oh-my-zsh.sh
 # de-duplicate $PATH
 typeset -aU path
 
+# source .bash_profile (runs `brew shellenv`) before .bashrc so /opt/homebrew/bin
+# is on PATH when .bashrc's `exec tmux` auto-start check runs
 source ~/.bash_aliases
-source ~/.bashrc
 source ~/.bash_profile
+source ~/.bashrc
 # write all shell commands to a log so we can grep through them forever
 # alternately, use fzf
 precmd() { eval 'date "+%Y-%m-%d %I:%M:%S ${PWD} [$?] \$ $(history -1 | cut -d\' ' -f4-)" >> ~/.shell_log' }
@@ -125,4 +140,8 @@ docker() {
 
 # brew install fzf && $(brew --prefix)/opt/fzf/install
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -s "/Users/stroopc/.scm_breeze/scm_breeze.sh" ] && source "/Users/stroopc/.scm_breeze/scm_breeze.sh"
+# Only load scm_breeze in interactive shells. Its ls/git/cat wrappers rely on
+# helper functions (_safe_eval) that don't survive non-interactive shell
+# snapshots (e.g. the ones Claude Code / scripts use), leaving broken aliases
+# that error with `command not found: _safe_eval`.
+[[ $- == *i* ]] && [ -s "/Users/stroopc/.scm_breeze/scm_breeze.sh" ] && source "/Users/stroopc/.scm_breeze/scm_breeze.sh"
