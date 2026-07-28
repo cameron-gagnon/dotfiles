@@ -63,3 +63,12 @@ set -g @yank_action 'copy-pipe'
 # This seems to have changed and is now set to 0 in my settings.
 # Possibly a bug with https://github.com/tmux/tmux/commit/2e9d7ebf15615b51b014a12de03b0e5483aadf99 ?
 set -s escape-time 20
+
+# status bar: show opencode sessions that are waiting for input.
+# The script checks each opencode pane for the absence of "esc interrupt" in the
+# footer (present only while processing). When one or more sessions are idle
+# and ready for input, a highlighted "OC waiting:<windows>" indicator appears
+# on the right side of the status bar. See scripts/opencode-status.sh.
+set -g status-interval 2
+set -g status-right-length 80
+set -g status-right '#(~/dotfiles/scripts/opencode-status.sh)#{?window_bigger,[#{window_offset_x}#,#{window_offset_y}] ,}"#{=21:pane_title}" %H:%M %d-%b-%y'
